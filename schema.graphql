@@ -1,0 +1,247 @@
+# This file was generated based on ".graphqlconfig". Do not edit manually.
+
+schema {
+  query: Query
+  mutation: Mutation
+}
+
+type Bot {
+  "The document's ID."
+  _id: ID!
+  "The document's timestamp."
+  _ts: Long!
+  description: String
+  interactions(
+    "The pagination cursor."
+    _cursor: String,
+    "The number of items to return per page."
+    _size: Int
+  ): InteractionPage!
+  name: String!
+  order: [String!]
+  owner: User
+}
+
+"The pagination object for elements of type 'Bot'."
+type BotPage {
+  "A cursor for elements coming after the current page."
+  after: String
+  "A cursor for elements coming before the current page."
+  before: String
+  "The elements of type 'Bot' in this page."
+  data: [Bot]!
+}
+
+type Interaction {
+  "The document's ID."
+  _id: ID!
+  "The document's timestamp."
+  _ts: Long!
+  description: String!
+  name: String!
+  owner: Bot
+}
+
+"The pagination object for elements of type 'Interaction'."
+type InteractionPage {
+  "A cursor for elements coming after the current page."
+  after: String
+  "A cursor for elements coming before the current page."
+  before: String
+  "The elements of type 'Interaction' in this page."
+  data: [Interaction]!
+}
+
+type Mutation {
+  "Create a new document in the collection of 'Bot'"
+  createBot(
+    "'Bot' input values"
+    data: BotInput!
+  ): Bot!
+  "Create a new document in the collection of 'Interaction'"
+  createInteraction(
+    "'Interaction' input values"
+    data: InteractionInput!
+  ): Interaction!
+  createUser(input: CreateUserInput): User!
+  "Delete an existing document in the collection of 'Bot'"
+  deleteBot(
+    "The 'Bot' document's ID"
+    id: ID!
+  ): Bot
+  "Delete an existing document in the collection of 'Interaction'"
+  deleteInteraction(
+    "The 'Interaction' document's ID"
+    id: ID!
+  ): Interaction
+  "Delete an existing document in the collection of 'User'"
+  deleteUser(
+    "The 'User' document's ID"
+    id: ID!
+  ): User
+  login(data: LoginUserInput): String!
+  "Update an existing document in the collection of 'Bot'"
+  updateBot(
+    "'Bot' input values"
+    data: BotInput!,
+    "The 'Bot' document's ID"
+    id: ID!
+  ): Bot
+  "Update an existing document in the collection of 'Interaction'"
+  updateInteraction(
+    "'Interaction' input values"
+    data: InteractionInput!,
+    "The 'Interaction' document's ID"
+    id: ID!
+  ): Interaction
+  "Update an existing document in the collection of 'User'"
+  updateUser(
+    "'User' input values"
+    data: UserInput!,
+    "The 'User' document's ID"
+    id: ID!
+  ): User
+}
+
+type Query {
+  allBots(
+    "The pagination cursor."
+    _cursor: String,
+    "The number of items to return per page."
+    _size: Int
+  ): BotPage!
+  allUsers(
+    "The pagination cursor."
+    _cursor: String,
+    "The number of items to return per page."
+    _size: Int
+  ): UserPage!
+  "Find a document from the collection of 'Bot' by its id."
+  findBotByID(
+    "The 'Bot' document's ID"
+    id: ID!
+  ): Bot
+  "Find a document from the collection of 'Interaction' by its id."
+  findInteractionByID(
+    "The 'Interaction' document's ID"
+    id: ID!
+  ): Interaction
+  "Find a document from the collection of 'User' by its id."
+  findUserByID(
+    "The 'User' document's ID"
+    id: ID!
+  ): User
+}
+
+type User {
+  "The document's ID."
+  _id: ID!
+  "The document's timestamp."
+  _ts: Long!
+  bots(
+    "The pagination cursor."
+    _cursor: String,
+    "The number of items to return per page."
+    _size: Int
+  ): BotPage!
+  role: UserRole!
+  username: String!
+}
+
+"The pagination object for elements of type 'User'."
+type UserPage {
+  "A cursor for elements coming after the current page."
+  after: String
+  "A cursor for elements coming before the current page."
+  before: String
+  "The elements of type 'User' in this page."
+  data: [User]!
+}
+
+enum UserRole {
+  ADMIN
+  GUEST
+  USER
+}
+
+"'Bot' input values"
+input BotInput {
+  description: String
+  interactions: BotInteractionsRelation
+  name: String!
+  order: [String!]
+  owner: BotOwnerRelation
+}
+
+"Allow manipulating the relationship between the types 'Bot' and 'Interaction'."
+input BotInteractionsRelation {
+  "Connect one or more documents of type 'Interaction' with the current document using their IDs."
+  connect: [ID]
+  "Create one or more documents of type 'Interaction' and associate them with the current document."
+  create: [InteractionInput]
+  "Disconnect the given documents of type 'Interaction' from the current document using their IDs."
+  disconnect: [ID]
+}
+
+"Allow manipulating the relationship between the types 'Bot' and 'User' using the field 'Bot.owner'."
+input BotOwnerRelation {
+  "Connect a document of type 'User' with the current document using its ID."
+  connect: ID
+  "Create a document of type 'User' and associate it with the current document."
+  create: UserInput
+  "If true, disconnects this document from 'User'"
+  disconnect: Boolean
+}
+
+input CreateUserInput {
+  password: String!
+  role: UserRole!
+  username: String!
+}
+
+"'Interaction' input values"
+input InteractionInput {
+  description: String!
+  name: String!
+  owner: InteractionOwnerRelation
+}
+
+"Allow manipulating the relationship between the types 'Interaction' and 'Bot' using the field 'Interaction.owner'."
+input InteractionOwnerRelation {
+  "Connect a document of type 'Bot' with the current document using its ID."
+  connect: ID
+  "Create a document of type 'Bot' and associate it with the current document."
+  create: BotInput
+  "If true, disconnects this document from 'Bot'"
+  disconnect: Boolean
+}
+
+input LoginUserInput {
+  password: String!
+  username: String!
+}
+
+"Allow manipulating the relationship between the types 'User' and 'Bot'."
+input UserBotsRelation {
+  "Connect one or more documents of type 'Bot' with the current document using their IDs."
+  connect: [ID]
+  "Create one or more documents of type 'Bot' and associate them with the current document."
+  create: [BotInput]
+  "Disconnect the given documents of type 'Bot' from the current document using their IDs."
+  disconnect: [ID]
+}
+
+"'User' input values"
+input UserInput {
+  bots: UserBotsRelation
+  role: UserRole!
+  username: String!
+}
+
+
+scalar Date
+
+scalar Time
+
+"The `Long` scalar type represents non-fractional signed whole numeric values. Long can represent values between -(2^63) and 2^63 - 1."
+scalar Long

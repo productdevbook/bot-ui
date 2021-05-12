@@ -1,0 +1,173 @@
+// Base grayscale colors definitions
+$white: #fff;
+$gray-100: #f8f9fa;
+$gray-200: #e9ecef;
+$gray-300: #dee2e6;
+$gray-400: #ced4da;
+$gray-500: #adb5bd;
+$gray-600: #6c757d;
+$gray-700: #495057;
+$gray-800: #343a40;
+$gray-900: #212529;
+$black: #000;
+
+$c: #121212;
+$c2: lighten($c, 7%);
+$c3: lighten($c, 9%);
+$c4: lighten($c, 12%);
+$f: $white;
+$f2: darken($white, 5%);
+$f3: darken($white, 7%);
+$f4: darken($white, 9%);
+
+$a: $white;
+$a2: lighten($c, 93%);
+$a3: lighten($c, 91%);
+$a4: lighten($c, 88%);
+$b: #121212;
+$b2: lighten($b, 5%);
+$b3: lighten($b, 7%);
+$b4: lighten($b, 9%);
+
+$theme-colors: ();
+$colors: ();
+
+// Base colors definitions
+$blue: #2952c1;
+$indigo: #6610f2;
+$purple: #6b20d9;
+$pink: #ff7bde;
+$red: #ca2222;
+$orange: #f90;
+$yellow: #daff06;
+$green: #2cc158;
+$teal: #20c997;
+$cyan: #17a2b8;
+$gold: #FFD700;
+$silver: #C0C0C0;
+$grey: #e5e5e5;
+$darkblue: #135;
+
+// Theme colo definitions
+$primary: $blue;
+$secondary: $gray-600;
+$success: $green;
+$info: $teal;
+$warning: $orange;
+$danger: $red;
+$light: $gray-300;
+$dark: $gray-800;
+
+// This table defines the theme colors (variant names)
+$colors: map-merge(
+    (
+      'blue': $blue,
+      'indigo': $indigo,
+      'purple': $purple,
+      'pink': $pink,
+      'red': $red,
+      'orange': $orange,
+      'yellow': $yellow,
+      'green': $green,
+      'teal': $teal,
+      'cyan': $cyan,
+      'white': $white,
+      'gray': $gray-600,
+      'gray-dark': $gray-800,
+      'primary': $primary,
+      'secondary': $secondary,
+      'success': $success,
+      'info': $info,
+      'warning': $warning,
+      'danger': $danger,
+      'light': $light,
+      'dark': $dark,
+    ),
+    $colors);
+$theme-colors: map-merge(
+    (
+      'primary': $primary,
+      'secondary': $secondary,
+      'success': $success,
+      'info': $info,
+      'warning': $warning,
+      'danger': $danger,
+      'light': $light,
+      'dark': $dark,
+      'blue': $blue,
+      'indigo': $indigo,
+      'purple': $purple,
+      'pink': $pink,
+      'red': $red,
+      'orange': $orange,
+      'yellow': $yellow,
+      'green': $green,
+      'teal': $teal,
+      'cyan': $cyan,
+      'black': $black,
+      'white': $white,
+      'gold': $gold,
+      'silver': $silver,
+      'darkblue': $darkblue,
+      'grey': $grey
+    ),
+    $theme-colors
+);
+
+:root.light {
+
+  background: $a;
+  color: $b;
+
+  #app, html, body {
+    background: $a;
+    color: $b;
+
+  }
+
+  nav {
+    color: $b2;
+    background: $a2;
+
+    & > * {
+      color: $black;
+    }
+  }
+
+  .main-view {
+    background: $a;
+    color: $b;
+  }
+
+  .layer-1 {
+    background: $a;
+    color: $b;
+  }
+
+  .layer-2 {
+    background: $a2;
+    color: $b2;
+  }
+
+  .layer-3 {
+    background: $a3;
+    color: $b3;
+  }
+
+  .layer-4 {
+    background: $a4;
+    color: $b4;
+  }
+}
+
+:root {
+
+  background: linear-gradient(#16161d, #1f1f3a, #3b2f4a);
+  color: $f;
+
+  #app, html, body {
+    background: linear-gradient(#16161d, #1f1f3a, #3b2f4a);
+    color: $f;
+
+  }
+}

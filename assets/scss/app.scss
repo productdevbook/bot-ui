@@ -1,0 +1,104 @@
+$fa-font-path: "../../static/webfonts";
+@import "/node_modules/@fortawesome/fontawesome-free/scss/regular";
+@import "/node_modules/@fortawesome/fontawesome-free/scss/solid";
+@import "assets/scss/base";
+@import "assets/scss/mixins";
+@import "assets/scss/theme";
+
+#app {
+  padding: 2rem;
+}
+
+#app, html, body {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  height: 100%;
+  width: 100%;
+  word-break: break-word;
+  overflow-x: hidden;
+  font-size: 1rem;
+
+  // Scrollbar styling
+  // FF styling
+  scrollbar-color: #bebebe #f1f1f1;
+  scrollbar-width: thin;
+
+  // -webkit for Safari & Chrome
+  ::-webkit-scrollbar {
+    width: 8px;
+
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #bebebe;
+
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #17a2b8;
+
+  }
+
+  .fas[data-count] {
+    position: relative;
+  }
+
+  .fas[data-count]:after {
+    position: absolute;
+    right: -0.9em;
+    top: -1.2em;
+    content: attr(data-count);
+    padding: .5em;
+    border-radius: 10em;
+    line-height: 1em;
+    color: white;
+    background: rgba($indigo, .8);
+    text-align: center;
+    min-width: 2em;
+    font: bold .5em sans-serif;
+  }
+
+  .fas[active-state="true"]:after {
+    background: rgba($green, .5);
+    content: '✓';
+  }
+
+  .fas[active-state="false"]:after {
+    background: rgba($red, .5);
+    content: 'X';
+  }
+
+  .invalid-feedback {
+    color: #ff0000;
+  }
+
+  .btn-label {
+    position: relative;
+    left: -12px;
+    display: inline-block;
+    padding: 6px 12px;
+    background: rgba(0, 0, 0, 0.15);
+    border-radius: 3px 0 0 3px;
+  }
+
+  .btn-labeled {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+}
+
+html, body {
+  overflow-y: hidden;
+
+}
+
+#app {
+  height: 100vh;
+
+}

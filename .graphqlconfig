@@ -1,0 +1,16 @@
+{
+  "name": "@braks/bot-ui GraphQL Schema",
+  "schemaPath": "schema.graphql",
+  "extensions": {
+    "endpoints": {
+      "Default GraphQL Endpoint": {
+        "url": "https://graphql.fauna.com/graphql",
+        "headers": {
+          "user-agent": "JS GraphQL",
+          "Authorization": "Basic Zm5BRUpCdGl5TkFDQkFlci1EeWhIV1RTV1I0QWNPYWphcmhucGNVTTpicmFrcy1ib3RzOnNlcnZlcg=="
+        },
+        "introspect": true
+      }
+    }
+  }
+}

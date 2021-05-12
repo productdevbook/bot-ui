@@ -1,0 +1,120 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.blur {
+  transition: all 200ms ease;
+  filter: blur(5px);
+}
+
+.required .col-form-label:after {
+  font-weight: bold;
+  content: "*";
+  color: #dc3545;
+}
+
+.default-enter-active, .default-leave-active {
+  transition: opacity .3s ease !important;
+}
+
+.default-enter, .default-leave-to /* .fade-leave-active below version 2.1.8 */
+{
+  opacity: 0 !important;
+}
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .6s ease !important;
+}
+
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */
+{
+  opacity: 0 !important;
+}
+
+.slide-leave-active,
+.slide-enter-active {
+  transition: .3s ease;
+}
+
+.slide-enter {
+  transform: translate(100%, 0);
+}
+
+.slide-leave-to {
+  transform: translate(-100%, 0);
+}
+
+.slide-right-leave-active,
+.slide-right-enter-active {
+  transition: .3s ease;
+}
+
+.slide-right-enter {
+  transform: translate(-100%, 0);
+}
+
+.slide-right-leave-to {
+  transform: translate(100%, 0);
+}
+
+.blinker {
+  opacity: 0;
+  -webkit-animation: blinker 1.1s ease infinite;
+  animation: blinker 1.1s ease infinite;
+}
+
+.flash {
+  opacity: 0;
+  -webkit-animation: flash 1.1s ease infinite;
+  animation: flash 1.1s ease infinite;
+}
+
+.speech-bubble {
+  background: #525b69;
+  border-radius: .4em;
+  position: relative;
+  left: -130px;
+  top: -30px;
+  text-align: center;
+  padding: 5px;
+  color: #f6f6f6;
+  word-break: break-word;
+  max-width: 150px;
+}
+
+.speech-bubble:after {
+  content: '';
+  position: absolute;
+  bottom: 1px;
+  right: 20%;
+  width: 0;
+  height: 0;
+  border: 0.875em solid transparent;
+  border-top-color: #525b69;
+  border-bottom: 0;
+  border-right: 0;
+  margin-left: -0.437em;
+  margin-bottom: -0.875em;
+}
+
+.btn {
+  @apply mx-2
+  my-2
+  transition
+  duration-150
+  ease-in-out
+  focus:outline-none
+  rounded
+  text-white
+  border border-gray-300
+  hover:bg-gray-300
+  hover:text-gray-700
+  px-6
+  py-2;
+}

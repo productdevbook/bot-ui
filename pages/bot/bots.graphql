@@ -1,0 +1,16 @@
+{
+  allBots {
+    data {
+      _id
+      name
+      description
+      order
+      interactions {
+        data {
+          name
+          description
+        }
+      }
+    }
+  }
+}
