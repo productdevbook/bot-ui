@@ -2,7 +2,7 @@ actions:
 - name: login
   definition:
     kind: synchronous
-    handler: http://192.168.178.33:8085/auth
+    handler: '{{ACTION_BASE_URL}}/'
     forward_client_headers: true
   permissions:
   - role: guest
