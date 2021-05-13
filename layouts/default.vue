@@ -51,6 +51,7 @@
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator';
 import '@/assets/scss/app.scss';
+import { timer, Subscription } from 'rxjs';
 
 @Component({
   name: 'V2Layout',
@@ -61,9 +62,35 @@ import '@/assets/scss/app.scss';
 export default class V2Layout extends Vue {
   visibleSidebar: boolean = false;
   stars: boolean = false;
+  interval?: Subscription;
+
+  mounted() {
+    this.refreshSession();
+  }
+
+  beforeDestroy() {
+    this.interval.unsubscribe();
+  }
 
   hide(): void {
     this.visibleSidebar = false;
+  }
+
+  refreshSession() {
+    const expiry = ((Number(process.env.REFRESH_INTERVAL) ?? 300) - 60) * 1000;
+    this.interval = timer(1, expiry).subscribe(async () => {
+      try {
+        const response = await fetch('/auth/refresh-token', {
+          headers: {
+            Authorization: `Bearer ${this.$apolloHelpers.getToken()}`
+          }
+        });
+        console.log(response);
+      } catch (e) {
+        console.log(e);
+        // await this.$router.replace('/login');
+      }
+    });
   }
 
   async logout() {
