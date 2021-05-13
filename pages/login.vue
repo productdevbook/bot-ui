@@ -1,5 +1,6 @@
 <template>
   <form id="login-form" :class="error ? 'border border-red-500' : ''">
+    <span class="text-3xl underline py-2 font-bold">Login</span>
     <div class="flex flex-col">
       <label for="username"> Username </label>
       <input id="username" v-model="username" type="text" placeholder="Enter username" @input="error = false" />
@@ -30,7 +31,7 @@ import login from '~/pages/login.graphql';
     }
     const toPath = to.fullPath.split('/');
     const fromPath = from.fullPath.split('/');
-    return toPath.length <= fromPath.length ? 'slide-right' : 'slide';
+    return toPath.length <= fromPath.length ? 'slide' : 'slide-right';
   }
 })
 export default class LoginForm extends Vue {
@@ -40,21 +41,16 @@ export default class LoginForm extends Vue {
 
   async submit() {
     try {
-      const res = await this.$apollo.mutate({
+      const res = await this.$apollo.mutate<{ login: { accessToken: string } }>({
         mutation: login,
         variables: {
           data: {
             username: this.username,
             password: this.password
           }
-        },
-        context: {
-          headers: {
-            Authorization: `Bearer ${this.$config.publicKey}`
-          }
         }
       });
-      await this.$apolloHelpers.onLogin(res.data.login);
+      await this.$apolloHelpers.onLogin(res.data.login.accessToken);
       await this.$router.replace('/');
     } catch (e) {
       console.log(e);
@@ -65,7 +61,7 @@ export default class LoginForm extends Vue {
 </script>
 <style>
 #login-form {
-  @apply py-3 px-5 bg-gray-800 rounded flex flex-col justify-around items-center w-full h-full md:w-1/2 md:h-1/2 lg:w-1/3 lg:h-1/3;
+  @apply py-3 px-5 bg-gray-800 rounded flex flex-col justify-around items-center w-full h-full md:w-1/2 md:h-1/2;
 }
 
 #password,

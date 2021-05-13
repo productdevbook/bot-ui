@@ -18,7 +18,7 @@
       </div>
       <list-item
         v-for="bot of filteredBots"
-        :key="bot._id"
+        :key="bot.id"
         :element="bot"
         size="xl"
         class="row-span-2 col-span-1"
@@ -69,13 +69,12 @@ export default class InfoBot extends Vue {
     }
   }
 
-  async fetch() {
+  fetch() {
     try {
-      const response = await this.$apollo.query({
+      const botObserver = this.$apollo.subscribe<{ bots: any[] }>({
         query: getBots
       });
-      console.log(response);
-      this.bots = response.data.allBots.data;
+      botObserver.subscribe((ev) => (this.bots = ev.data.bots), console.log);
     } catch (e) {
       console.log(e);
     }

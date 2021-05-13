@@ -21,7 +21,7 @@ import { Component, Vue } from 'nuxt-property-decorator';
     }
     const toPath = to.fullPath.split('/');
     const fromPath = from.fullPath.split('/');
-    return toPath.length <= fromPath.length ? 'slide-right' : 'slide';
+    return toPath.length <= fromPath.length && (from.name !== 'login' || to.name === 'login') ? 'slide-right' : 'slide';
   }
 })
 export default class Welcome extends Vue {}
