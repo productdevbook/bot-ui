@@ -153,7 +153,12 @@ const config = {
 
   publicRuntimeConfig: {
     publicKey: process.env.FAUNADB_PUBLIC_KEY
-  }
+  },
+
+  serverMiddleware: [
+    // Will register file from project server-middleware directory to handle /auth/* requires
+    { path: '/auth', handler: '~/server-middleware/auth/index.ts' }
+  ]
 } as NuxtConfig;
 
 // some dev only options

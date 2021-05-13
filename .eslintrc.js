@@ -9,6 +9,8 @@ const baseRules = {
   'no-unused-vars': ['error', { vars: 'local', args: 'after-used', ignoreRestSiblings: true }],
   'no-cond-assign': [2],
   'no-console': 'off',
+  camelcase: 0,
+  '@typescript/camelcase': 0,
   'vue/no-v-html': 'off',
   'prettier/prettier': [
     'warn',

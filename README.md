@@ -16,13 +16,26 @@ $ yarn install
 $ yarn watch
 ```
 
+## GraphQL API (Hasura GraphQL Engine)
+```bash
+# switch to hasura directory
+$ cd hasura
+
+# start docker container
+$ docker-compose up -d
+```
+
 ## Environment variables
-| Parameter           | Type          | Description   |
-| --------------------|---------------|---------------| 
-| API_URL             | string        | (_optional_) Production API URL as BaseURL for axios config
-| TARGET_STAGE        | string        | (__required__) defaults to 'staging'
-| DEV_API             | boolean       | (_optional_) Start up the dev api
-| DEV_API_PORT        | number        | (_optional_) Defaults to 3000
+| Parameter           | Type          | Default       | Description   |
+| --------------------|---------------|---------------|---------------|  
+| RS256_PUBLIC_KEY    | string        |               | (__required__) Public Key for JWT verification
+| RS256_SECRET_KEY    | string        |               | (__required__) Secret Key for JWT signing
+| GRAPHQL_ENDPOINT    | string        |               | (__required__) GraphQL Endpoint (i.e. Hasura Endpoint) http://localhost:8080
+| HASURA_ADMIN_KEY    | string        |               | (__required__) Deployment stage
+| TARGET_ENV          | string        | "dev"         | (_optional_) Environment
+| TARGET_STAGE        | string        | "staging"     | (_optional_) Deployment stage
+| SSR                 | boolean       | false         | (_optional_) Enable Server-Side Rendering
+| REFRESH_INTERVAL    | number        | 300           | (_optional_) Session refresh interval
 
 ## Docker
 ![Docker Image Size (tag)](https://img.shields.io/docker/image-size/bcakmakoglu/bot-api/latest)
@@ -31,10 +44,6 @@ The docker compose file contains 3 services:
 1. The Bot UI running on port 8085
 2. Adminer (Database UI) on port 8080
 3. MariaDB on port 3306
-
-## [Bot Core](https://github.com/bcakmakoglu/bot-api)
-You can start up the integrated bot core package by simply setting the environment variable _DEV_API_ to true.
-The api will then fire up on a port of your choosing (_DEV_API_PORT_) when you start nuxt.
 
 #
 ![GitHub package.json version](https://img.shields.io/github/package-json/v/bcakmakoglu/bot-ui)
