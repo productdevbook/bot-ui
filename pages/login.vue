@@ -1,21 +1,47 @@
 <template>
   <form id="login-form" :class="error ? 'border border-red-500' : ''">
-    <span class="headline">Login</span>
-    <div class="flex flex-col">
-      <label for="username"> Username </label>
-      <input id="username" v-model="username" type="text" placeholder="Enter username" @input="error = false" />
-    </div>
-    <div class="flex flex-col">
-      <label for="password"> Password </label>
-      <input id="password" v-model="password" type="password" placeholder="Enter password" @input="error = false" />
-    </div>
+    <div class="headline">Welcome!</div>
+    <span class="subline">
+      Log into your account to get started!
+      <br />
+      If you don't have an account yet, you're currently out of luck.
+      <br />
+      Public registrations will be open soon.
+    </span>
+    <div class="flex flex-col flex-around justify-center items-center gap-6">
+      <div class="flex flex-col">
+        <label for="username" class="uppercase font-extrabold text-blue-400"> Username </label>
+        <div class="relative">
+          <div class="absolute text-gray-600 dark:text-gray-400 flex items-center pl-4 h-full cursor-pointer">
+            <i class="fas fa-user text-white"></i>
+          </div>
+          <input id="username" v-model="username" type="text" placeholder="Enter username" @input="error = false" />
+        </div>
+      </div>
+      <div class="flex flex-col">
+        <label for="password" class="uppercase font-extrabold text-blue-400"> Password </label>
+        <div class="relative">
+          <div class="absolute text-gray-600 dark:text-gray-400 flex items-center pl-4 h-full cursor-pointer">
+            <i class="fas fa-passport text-white"></i>
+          </div>
+          <input id="password" v-model="password" type="password" placeholder="Enter password" @input="error = false" />
+        </div>
+      </div>
 
-    <transition name="fade" mode="out-in">
-      <span v-show="error" class="text-red-500 text-center py-1">
-        There was an issue while logging you in... Please check your credentials and try again.
-      </span>
-    </transition>
-    <button class="bg-green-500 btn" @click.prevent="submit">Login</button>
+      <transition name="fade" mode="out-in">
+        <span v-show="error" class="text-red-500 text-center py-1">
+          There was an issue while logging you in...
+          <br />
+          Please check your credentials and try again.
+        </span>
+      </transition>
+      <button :disabled="disabled" :class="disabled ? 'bg-gray-700 btn-disabled' : 'bg-green-500 btn'" @click.prevent="submit">
+        <transition-group name="fade" mode="out-in">
+          <span v-show="$apollo.loading" key="loading"> <i class="fas fa-spinner fa-spin"></i></span>
+          <span v-show="!$apollo.loading" key="login-text">Login</span>
+        </transition-group>
+      </button>
+    </div>
   </form>
 </template>
 <script lang="ts">
@@ -24,20 +50,16 @@ import login from '~/pages/login.graphql';
 
 @Component({
   name: 'LoginForm',
-  layout: 'login',
-  transition(to, from) {
-    if (!from) {
-      return '';
-    }
-    const toPath = to.fullPath.split('/');
-    const fromPath = from.fullPath.split('/');
-    return toPath.length <= fromPath.length ? 'slide' : 'slide-right';
-  }
+  layout: 'login'
 })
 export default class LoginForm extends Vue {
   username = '';
   password = '';
   error = false;
+
+  get disabled() {
+    return this.error || this.password === '' || this.username === '';
+  }
 
   async submit() {
     try {
@@ -60,13 +82,16 @@ export default class LoginForm extends Vue {
 }
 </script>
 <style>
-
 .headline {
-  @apply text-3xl underline py-2 font-bold text-blue-500;
+  @apply text-3xl underline pt-2 font-bold text-gray-200 max-w-sm text-center;
+}
+
+.subline {
+  @apply max-w-sm text-center text-gray-500 text-sm lg:text-lg;
 }
 
 #login-form {
-  @apply py-3 px-5 bg-gray-800 rounded flex flex-col justify-around items-center w-full h-full md:w-1/2 md:h-1/2;
+  @apply shadow-xl py-3 px-5 lg:px-3 bg-gray-800 rounded gap-6 flex flex-col justify-around items-center min-h-1/3 min-w-1/3;
 }
 
 #password,
@@ -74,8 +99,8 @@ export default class LoginForm extends Vue {
   @apply text-gray-600
   dark:text-gray-400
   focus:outline-none
-  focus:border-indigo-700
-  dark:focus:border-indigo-700
+  focus:border-blue-700
+  dark:focus:border-blue-700
   dark:border-gray-700
   dark:bg-gray-700
   bg-white
@@ -84,7 +109,7 @@ export default class LoginForm extends Vue {
   h-10
   flex
   items-center
-  pl-3
+  pl-12
   text-sm
   border-gray-300
   rounded

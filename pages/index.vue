@@ -17,7 +17,7 @@ import { Component, Vue } from 'nuxt-property-decorator';
   name: 'Home',
   transition(to, from) {
     if (!from) {
-      return 'fade';
+      return 'default';
     }
     const toPath = to.fullPath.split('/');
     const fromPath = from.fullPath.split('/');

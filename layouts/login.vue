@@ -3,10 +3,12 @@
     <Nuxt />
   </div>
 </template>
-<script>
+<script lang="ts">
 import '@/assets/scss/app.scss';
+import { Component, Vue } from 'nuxt-property-decorator';
 
-export default {
+@Component({
   name: 'LoginLayout'
-};
+})
+export default class LoginLayout extends Vue {}
 </script>

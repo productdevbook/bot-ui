@@ -65,7 +65,6 @@ const config = {
     indicator: true,
     splitChunks: {
       commons: true,
-      layouts: true,
       pages: true
     },
     babel: { compact: true },
@@ -111,6 +110,11 @@ const config = {
     routeNameSplitter: '/',
     mode: 'history',
     middleware: 'auth'
+  },
+
+  layoutTransition: {
+    name: 'default',
+    mode: 'out-in'
   },
 
   pageTransition: {
