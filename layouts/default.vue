@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <transition name="fade" mode="out-in">
-      <span v-if="$route.name !== 'index'" title="Back" class="nav-item nav-back grow pointer" @click="$router.go(-1)">
+      <span v-if="$route.name !== 'index'" title="Back" class="nav-item nav-back grow" @click="$router.go(-1)">
         <i class="fas fa-chevron-left pr-1"></i>
       </span>
     </transition>
@@ -14,10 +14,10 @@
       title="Sterne einblenden (Animationen können die Webseite verlangsamen)"
     />
     -->
-    <span class="nav-item nav-menu grow pointer">
+    <span class="nav-item nav-menu grow">
       <i title="Menu" class="fas fa-bars" @click="visibleSidebar = !visibleSidebar"></i>
     </span>
-    <div title="Logoff" class="nav-item top-8 right-8 pointer grow hover:text-red-500" @click="logout">
+    <div title="Logoff" class="nav-item top-4 right-4 grow hover:text-red-500" @click="logout">
       <i class="fas fa-power-off"></i>
     </div>
     <div class="w-full h-full flex justify-center items-center" @click="hide">
@@ -87,15 +87,16 @@ export default class V2Layout extends Vue {
   rounded-full
   opacity-20
   hover:opacity-100
-  fixed;
+  fixed
+  cursor-pointer;
 }
 
 .nav-menu {
   @apply w-6 h-6 lg:w-12
   lg:h-12
   fixed
-  top-8
-  left-8
+  top-4
+  left-4
   text-xl
   lg:border
   lg:text-2xl

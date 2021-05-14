@@ -14,6 +14,7 @@
                 title="Here you can edit your interaction/s. Just pick an interaction from the list or create a new one! Easy, right?"
                 :name="interaction.name"
                 :description="interaction.description"
+                icon="fa-user"
               >
               </info-tab>
             </transition>
@@ -46,7 +47,7 @@ import { Interactions } from '~/types/types';
   }
 })
 export default class InteractionInfo extends Vue {
-  interactions: Interactions[] = [];
+  interactions: Pick<Interactions, 'name' | 'description'>[] = [{ name: '', description: '' }];
 
   get interaction() {
     return this.interactions[0];
@@ -54,17 +55,14 @@ export default class InteractionInfo extends Vue {
 
   fetch() {
     try {
-      const interactionObserver = this.$apollo.subscribe<{ interactions: Interactions[] }>({
+      const interactionObserver = this.$apollo.subscribe<{ interactions: Pick<Interactions, 'name' | 'description'>[] }>({
         query: getInteractions,
         variables: {
           id: this.$route.params.iaId
         }
       });
       interactionObserver.subscribe(
-        (ev) => {
-          console.log(ev);
-          this.interactions = ev.data.interactions;
-        },
+        (ev) => (this.interactions = ev.data.interactions),
         () => this.$router.replace(`/bot/${this.$route.params.id}`)
       );
     } catch (e) {

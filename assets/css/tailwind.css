@@ -13,6 +13,7 @@
     focus:outline-none
     rounded
     text-white
+    cursor-pointer
     border border-gray-300
     hover:bg-gray-300
     hover:text-black
@@ -24,6 +25,7 @@
     @apply mx-2
     my-2
     pointer-events-none
+    cursor-not-allowed
     transition
     duration-150
     ease-in-out
