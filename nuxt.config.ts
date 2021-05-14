@@ -1,6 +1,5 @@
 import type { NuxtConfig } from '@nuxt/types';
 import {
-  NuxtApolloConfig,
   NuxtBuildConfig,
   NuxtBuildModules,
   NuxtModules,
@@ -95,11 +94,17 @@ const config = {
     }
   },
 
-  publicRuntimeConfig: {},
+  publicRuntimeConfig: {
+    graphQlEndpoint: process.env.GRAPHQL_ENDPOINT
+  },
 
   serverMiddleware: NuxtServerMiddlewareConfig,
 
-  apollo: NuxtApolloConfig,
+  apollo: {
+    clientConfigs: {
+      default: '~/plugins/apollo/config.ts'
+    }
+  },
 
   toast: NuxtToasterConfig
 } as NuxtConfig;
