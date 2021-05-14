@@ -38,9 +38,10 @@
 import { Component, Vue } from 'nuxt-property-decorator';
 import getBot from './get_bot.graphql';
 import updateBot from './update_bot.graphql';
+import getStart from './get_start.graphql';
 import InfoTab from '~/components/info.vue';
 import Sidebar from '~/components/sidebar.vue';
-import { Bots } from '~/types/types';
+import { Bots, Interactions } from '~/types/types';
 
 @Component({
   name: 'InfoBot',
@@ -68,9 +69,7 @@ export default class InfoBot extends Vue {
           id: this.$route.params.id
         }
       });
-      botObserver.subscribe((ev) => {
-        this.bot = ev.data.bots_by_pk;
-      }, console.log);
+      botObserver.subscribe((ev) => (this.bot = ev.data.bots_by_pk), console.log);
     } catch (e) {
       console.log(e);
     }
@@ -93,8 +92,14 @@ export default class InfoBot extends Vue {
     }
   }
 
-  pushStart() {
-    return this.$router.push(`/v2/bot/${this.$route.params.id}/interaction/1`);
+  async pushStart() {
+    const r = await this.$apollo.query<{ interactions: Interactions[] }>({
+      query: getStart,
+      variables: {
+        botId: this.$route.params.id
+      }
+    });
+    return this.$router.push(`/bot/${this.$route.params.id}/interaction/${r.data.interactions[0].id}`);
   }
 }
 </script>

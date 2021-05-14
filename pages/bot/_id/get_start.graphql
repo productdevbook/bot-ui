@@ -1,0 +1,5 @@
+query get_start($botId: uuid!) {
+  interactions(where: {bot_id: {_eq: $botId}}) {
+    id
+  }
+}
