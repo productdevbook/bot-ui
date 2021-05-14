@@ -1,0 +1,2 @@
+INSERT INTO public.users (id, username, password, created_at, last_seen) VALUES ('4fc98108-e795-4889-9ead-96c5cd8906ff', 'braks', 'somepassword', '2021-05-13 11:34:18.493168+00', '2021-05-13 11:34:18.493168+00');
+INSERT INTO public.bots (id, name, description, created_at, updated_at, user_id) VALUES ('0e37cb6e-df78-4212-9991-369b9c96eee3', 'Botman!', 'Nanananana Botman!', '2021-05-13 11:39:51.151781+00', '2021-05-13 11:39:51.151781+00', '4fc98108-e795-4889-9ead-96c5cd8906ff');
