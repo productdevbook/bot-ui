@@ -64,7 +64,8 @@ import login from '~/pages/login.graphql';
 
 @Component({
   name: 'LoginForm',
-  layout: 'login'
+  layout: 'login',
+  transition: 'default'
 })
 export default class LoginForm extends Vue {
   username = '';
@@ -76,18 +77,23 @@ export default class LoginForm extends Vue {
   }
 
   async submit() {
-    const res = await this.$apollo.mutate<{ login: { accessToken: string } }>({
-      mutation: login,
-      variables: {
-        data: {
-          username: this.username,
-          password: this.password
+    try {
+      const res = await this.$apollo.mutate<{ login: { accessToken: string } }>({
+        mutation: login,
+        variables: {
+          data: {
+            username: this.username,
+            password: this.password
+          }
         }
-      }
-    });
-    await this.$apolloHelpers.onLogin(res.data.login.accessToken);
-    await this.$store.dispatch('user/login', { id: '0', username: this.username, roles: ['user'] });
-    await this.$router.replace('/');
+      });
+      await this.$apolloHelpers.onLogin(res.data.login.accessToken);
+      await this.$store.dispatch('user/login', { id: '0', username: this.username, roles: ['user'] });
+      await this.$router.replace('/');
+    } catch (e) {
+      console.log(e);
+      this.error = true;
+    }
   }
 }
 </script>
