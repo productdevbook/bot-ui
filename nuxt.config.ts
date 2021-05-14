@@ -113,11 +113,6 @@ const config = {
     middleware: 'auth'
   },
 
-  layoutTransition: {
-    name: 'default',
-    mode: 'out-in'
-  },
-
   pageTransition: {
     name: 'slide',
     mode: 'out-in'

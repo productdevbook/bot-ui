@@ -89,8 +89,5 @@ sw.*
 # Vim swap files
 *.swp
 
-# RS-key files
-./hasura/*.key*
-
 # Db-Data
-./hasura/db_data
+hasura/db_data/

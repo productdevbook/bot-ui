@@ -1,6 +1,6 @@
 <template>
   <form id="login-form" :class="error ? 'border border-red-500' : ''">
-    <span class="text-3xl underline py-2 font-bold">Login</span>
+    <span class="headline">Login</span>
     <div class="flex flex-col">
       <label for="username"> Username </label>
       <input id="username" v-model="username" type="text" placeholder="Enter username" @input="error = false" />
@@ -27,7 +27,7 @@ import login from '~/pages/login.graphql';
   layout: 'login',
   transition(to, from) {
     if (!from) {
-      return 'fade';
+      return '';
     }
     const toPath = to.fullPath.split('/');
     const fromPath = from.fullPath.split('/');
@@ -60,6 +60,11 @@ export default class LoginForm extends Vue {
 }
 </script>
 <style>
+
+.headline {
+  @apply text-3xl underline py-2 font-bold text-blue-500;
+}
+
 #login-form {
   @apply py-3 px-5 bg-gray-800 rounded flex flex-col justify-around items-center w-full h-full md:w-1/2 md:h-1/2;
 }

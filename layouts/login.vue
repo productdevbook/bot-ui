@@ -1,5 +1,5 @@
 <template>
-  <div id="app" class="w-full h-full flex justify-center items-center">
+  <div id="app">
     <Nuxt />
   </div>
 </template>
