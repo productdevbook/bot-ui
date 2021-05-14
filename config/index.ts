@@ -5,6 +5,7 @@ import { NuxtHeaderConfig } from './header';
 import { NuxtPluginsConfig } from './plugins';
 import { NuxtRouterConfig } from './router';
 import { NuxtServerMiddlewareConfig } from './server-middleware';
+import { NuxtToasterConfig } from './toast';
 
 export {
   NuxtApolloConfig,
@@ -14,5 +15,6 @@ export {
   NuxtHeaderConfig,
   NuxtPluginsConfig,
   NuxtRouterConfig,
-  NuxtServerMiddlewareConfig
+  NuxtServerMiddlewareConfig,
+  NuxtToasterConfig
 };

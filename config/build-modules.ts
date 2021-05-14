@@ -5,4 +5,4 @@ export const NuxtBuildModules = [
   '@nuxtjs/tailwindcss'
 ];
 
-export const NuxtModules = ['@nuxtjs/proxy', '@nuxtjs/apollo'];
+export const NuxtModules = ['@nuxtjs/proxy', '@nuxtjs/apollo', '@nuxtjs/toast'];
