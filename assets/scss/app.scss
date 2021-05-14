@@ -18,7 +18,7 @@ $fa-font-path: "../../static/webfonts";
 }
 
 #app {
-  @apply p-8;
+  @apply px-16 py-8;
 }
 
 html, body {
@@ -104,35 +104,5 @@ html, body {
   .btn-labeled {
     padding-top: 0;
     padding-bottom: 0;
-  }
-
-  .btn {
-    @apply mx-2
-    my-2
-    transition
-    duration-150
-    ease-in-out
-    focus:outline-none
-    rounded
-    text-white
-    border border-gray-300
-    hover:bg-gray-300
-    hover:text-black
-    px-6
-    py-2;
-  }
-
-  .btn-disabled {
-    @apply mx-2
-    my-2
-    pointer-events-none
-    transition
-    duration-150
-    ease-in-out
-    rounded
-    text-gray-500
-    border border-gray-500
-    px-6
-    py-2;
   }
 }
