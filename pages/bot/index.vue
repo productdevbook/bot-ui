@@ -1,12 +1,18 @@
 <template>
-  <div class="w-full lg:h-2/3 flex flex-1 justify-center flex-row flex-wrap gap-8">
+  <div class="w-full h-full flex flex-1 justify-center flex-row flex-wrap gap-8">
+    <div class="w-full text-center flex flex-col gap-2">
+      <span class="text-3xl lg:text-5xl">Bots</span>
+      <span class="text-md lg:text-xl text-gray-500">
+        Click on a card to start editing your bot or enter a name in the searchbar to look for it.
+      </span>
+    </div>
     <search
       :value="query"
       placeholder="Enter a name to find your bot"
       class="w-full md:w-1/2 flex justify-center items-center"
       @input="($event) => (query = $event)"
     ></search>
-    <list-group row class="h-full w-full flex-wrap items-start gap-8">
+    <list-group row class="h-full w-full flex-wrap items-start justify-center gap-8">
       <list-item
         v-for="bot of filteredBots"
         :key="bot.id"
