@@ -1,7 +1,7 @@
 <template>
-  <div class="bg-gray-800 h-1/2 w-1/2 flex justify-around items-center flex-col py-5 px-5">
+  <div class="bg-gray-800 flex gap-8 justify-around items-center flex-col p-12 rounded shadow-xl">
     <span class="text-6xl underline">@braks/Bot-Ui</span>
-    <span class="text-3xl">Welcome to braks Bot-UI!</span>
+    <span class="text-3xl text-gray-600">Welcome {{ username }}!</span>
     <p>For more information visit <a href="https://github.com/braksgold/bot-ui">website</a></p>
     <div class="flex flex-row justify-center items-center">
       <router-link disabled class="bg-purple-500 btn" to="#">Get started</router-link>
@@ -24,5 +24,9 @@ import { Component, Vue } from 'nuxt-property-decorator';
     return toPath.length <= fromPath.length && (from.name !== 'login' || to.name === 'login') ? 'slide-right' : 'slide';
   }
 })
-export default class Welcome extends Vue {}
+export default class Welcome extends Vue {
+  get username() {
+    return this.$store.getters['user/me'].username;
+  }
+}
 </script>

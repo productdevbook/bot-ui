@@ -73,6 +73,7 @@ export default class LoginForm extends Vue {
         }
       });
       await this.$apolloHelpers.onLogin(res.data.login.accessToken);
+      await this.$store.dispatch('user/login', { id: '0', username: this.username, roles: ['user'] });
       await this.$router.replace('/');
     } catch (e) {
       console.log(e);

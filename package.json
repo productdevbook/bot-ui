@@ -14,9 +14,7 @@
     "lint": "yarn lint:js",
     "test": "exit 0"
   },
-  "dependencies": {
-    "vuex-persistedstate": "^4.0.0-beta.3"
-  },
+  "dependencies": {},
   "devDependencies": {
     "@fortawesome/fontawesome-free": "^5.15.3",
     "@graphql-codegen/cli": "^1.21.4",
@@ -25,6 +23,7 @@
     "@graphql-codegen/typescript-operations": "^1.17.16",
     "@nuxt/types": "^2.15.6",
     "@nuxt/typescript-build": "^2.1.0",
+    "@nuxt/typescript-runtime": "^2.1.0",
     "@nuxtjs/apollo": "^4.0.1-rc.5",
     "@nuxtjs/eslint-config-typescript": "^6.0.0",
     "@nuxtjs/eslint-module": "^3.0.2",
@@ -54,6 +53,7 @@
     "sass": "^1.32.13",
     "sass-loader": "^10.1.1",
     "ts-jest": "^26.5.4",
-    "vue-jest": "^3.0.4"
+    "vue-jest": "^3.0.4",
+    "vuex-persistedstate": "^4.0.0-beta.3"
   }
 }

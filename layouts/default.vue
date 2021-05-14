@@ -95,6 +95,7 @@ export default class V2Layout extends Vue {
 
   async logout() {
     await this.$apolloHelpers.onLogout();
+    await this.$store.dispatch('user/logout');
     await this.$router.replace('/login');
   }
 }
