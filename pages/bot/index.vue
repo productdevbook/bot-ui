@@ -24,6 +24,7 @@ import getBots from './bots.graphql';
 import ListGroup from '~/components/list/group.vue';
 import ListItem from '~/components/list/item.vue';
 import Search from '~/components/search.vue';
+import { Bots } from '~/types/types';
 
 @Component({
   name: 'Bot',
@@ -42,7 +43,7 @@ import Search from '~/components/search.vue';
 })
 export default class InfoBot extends Vue {
   query = '';
-  bots: any[] = [];
+  bots: Pick<Bots, 'id' | 'name' | 'description'>[] = [];
 
   get id() {
     return this.$route.params.id;

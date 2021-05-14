@@ -1,5 +1,6 @@
-{
+query get_bot($id: uuid!) {
   bots_by_pk(id: $id) {
+    id
     name
     description
   }

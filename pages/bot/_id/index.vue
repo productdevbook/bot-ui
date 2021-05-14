@@ -1,8 +1,6 @@
 <template>
   <div class="flex justify-start md:justify-center flex-1 flex-col items-center lg:flex-row">
-    <div
-      class="grid sm:grid-cols-1 md:grid-cols-2 row-span-4 gap-4 rounded dark:bg-gray-800 shadow-lg p-6 sm:w-full lg:w-1/2"
-    >
+    <div class="grid sm:grid-cols-1 md:grid-cols-2 row-span-4 gap-4 rounded dark:bg-gray-800 shadow-lg p-6 sm:w-full lg:w-1/2">
       <transition name="fade" mode="out-in">
         <info-tab
           class="col-span-1"
@@ -65,10 +63,15 @@ export default class InfoBot extends Vue {
 
   fetch() {
     try {
-      const botObserver = this.$apollo.subscribe<{ bot: any }>({
-        query: getBot
+      const botObserver = this.$apollo.subscribe<{ bots_by_pk: Omit<Record<string, any>, '__typename'> }>({
+        query: getBot,
+        variables: {
+          id: this.$route.params.id
+        }
       });
-      botObserver.subscribe((ev) => (this.bot = ev.data.bot), console.log);
+      botObserver.subscribe((ev) => {
+        this.bot = ev.data.bots_by_pk;
+      }, console.log);
     } catch (e) {
       console.log(e);
     }
@@ -76,6 +79,7 @@ export default class InfoBot extends Vue {
 
   async update(bot) {
     const toUpdate = { ...this.bot, ...bot };
+    console.log(toUpdate);
     try {
       const updated = await this.$apollo.mutate({
         mutation: updateBot,

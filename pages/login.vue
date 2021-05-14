@@ -10,21 +10,35 @@
     </span>
     <div class="flex flex-col flex-around justify-center items-center gap-6">
       <div class="flex flex-col">
-        <label for="username" class="uppercase font-extrabold text-blue-400"> Username </label>
+        <label for="username" class="label uppercase font-extrabold text-blue-400"> Username </label>
         <div class="relative">
           <div class="absolute text-gray-600 dark:text-gray-400 flex items-center pl-4 h-full cursor-pointer">
             <i class="fas fa-user text-white"></i>
           </div>
-          <input id="username" v-model="username" type="text" placeholder="Enter username" @input="error = false" />
+          <input
+            id="username"
+            v-model="username"
+            class="input-field"
+            type="text"
+            placeholder="Enter username"
+            @input="error = false"
+          />
         </div>
       </div>
       <div class="flex flex-col">
-        <label for="password" class="uppercase font-extrabold text-blue-400"> Password </label>
+        <label for="password" class="label uppercase font-extrabold text-blue-400"> Password </label>
         <div class="relative">
           <div class="absolute text-gray-600 dark:text-gray-400 flex items-center pl-4 h-full cursor-pointer">
             <i class="fas fa-passport text-white"></i>
           </div>
-          <input id="password" v-model="password" type="password" placeholder="Enter password" @input="error = false" />
+          <input
+            id="password"
+            v-model="password"
+            class="input-field"
+            type="password"
+            placeholder="Enter password"
+            @input="error = false"
+          />
         </div>
       </div>
 
@@ -93,32 +107,5 @@ export default class LoginForm extends Vue {
 
 #login-form {
   @apply shadow-xl py-3 px-5 lg:px-3 bg-gray-800 rounded gap-6 flex flex-col justify-around items-center min-h-1/3 min-w-1/3;
-}
-
-#password,
-#username {
-  @apply text-gray-600
-  dark:text-gray-400
-  focus:outline-none
-  focus:border-blue-700
-  dark:focus:border-blue-700
-  dark:border-gray-700
-  dark:bg-gray-700
-  bg-white
-  font-normal
-  w-64
-  h-10
-  flex
-  items-center
-  pl-12
-  text-sm
-  border-gray-300
-  rounded
-  border
-  shadow;
-}
-
-label {
-  @apply text-gray-800 dark:text-gray-100 text-sm font-bold leading-tight tracking-normal mb-2;
 }
 </style>
