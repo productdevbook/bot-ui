@@ -9,7 +9,7 @@
     "start": "nuxt start",
     "generate": "nuxt generate",
     "generate-types": "graphql-codegen --config codegen.yml",
-    "vercel-build": "exit 0",
+    "vercel-build": "yarn generate-types",
     "lint:js": "eslint --ext \".js,.vue\" --ignore-path .gitignore .",
     "lint": "yarn lint:js",
     "test": "exit 0"
