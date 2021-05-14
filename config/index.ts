@@ -1,4 +1,3 @@
-import { NuxtApolloConfig } from './apollo';
 import { NuxtBuildConfig } from './build';
 import { NuxtBuildModules, NuxtModules } from './build-modules';
 import { NuxtHeaderConfig } from './header';
@@ -8,7 +7,6 @@ import { NuxtServerMiddlewareConfig } from './server-middleware';
 import { NuxtToasterConfig } from './toast';
 
 export {
-  NuxtApolloConfig,
   NuxtBuildConfig,
   NuxtBuildModules,
   NuxtModules,
