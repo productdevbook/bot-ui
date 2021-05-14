@@ -1,4 +1,14 @@
 import type { NuxtConfig } from '@nuxt/types';
+import {
+  NuxtApolloConfig,
+  NuxtBuildConfig,
+  NuxtBuildModules,
+  NuxtModules,
+  NuxtHeaderConfig,
+  NuxtPluginsConfig,
+  NuxtRouterConfig,
+  NuxtServerMiddlewareConfig
+} from './config';
 
 const dev = process.env.TARGET_STAGE === 'dev' || true;
 const ssr = process.env.SSR === 'true' || false;
@@ -15,25 +25,13 @@ const config = {
   target: ssr ? 'server' : 'static',
 
   // Global page headers (https://go.nuxtjs.dev/config-head)
-  head: {
-    title: '@braks/bot-ui',
-    meta: [
-      { charset: 'utf-8' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: '' }
-    ],
-    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
-  },
+  head: NuxtHeaderConfig,
 
   // Global CSS (https://go.nuxtjs.dev/config-css)
   css: ['@fortawesome/fontawesome-free/css/all.css'],
 
   // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
-  plugins: [
-    {
-      src: '~/plugins/vuex-persisted-state/persisted.ts'
-    }
-  ],
+  plugins: NuxtPluginsConfig,
 
   // Auto import components (https://go.nuxtjs.dev/config-components)
   // if you're using true instead of paths make sure you understand that component names are created in accordance to directory structure
@@ -41,66 +39,13 @@ const config = {
   components: true,
 
   // Modules for dev and build (recommended) (https://go.nuxtjs.dev/config-modules)
-  buildModules: [
-    // https://go.nuxtjs.dev/typescript
-    '@nuxt/typescript-build',
-    '@nuxt/components',
-    '@nuxtjs/tailwindcss'
-  ],
+  buildModules: NuxtBuildModules,
 
   // Modules (https://go.nuxtjs.dev/config-modules)
-  modules: ['@nuxtjs/proxy', '@nuxtjs/apollo'],
-
-  apollo: {
-    clientConfigs: {
-      default: {
-        httpEndpoint: process.env.GRAPHQL_ENDPOINT
-      }
-    }
-  },
+  modules: NuxtModules,
 
   // Build Configuration (https://go.nuxtjs.dev/config-build)
-  build: {
-    transpile: ['vuex-module-decorators'],
-    plugins: [],
-    extractCSS: true,
-    postcss: true,
-    loadingScreen: true,
-    indicator: true,
-    splitChunks: {
-      commons: true,
-      pages: true
-    },
-    babel: { compact: true },
-    extend(config, { isDev, isClient, loaders: { vue } }) {
-      config.node = {
-        fs: 'empty'
-      };
-      if (isDev) {
-        config.mode = 'development';
-        config.devtool = 'source-map';
-      }
-      if (isClient) {
-        if (config.optimization?.splitChunks) {
-          config.optimization.splitChunks.maxSize = 200000;
-        }
-        if (vue) {
-          vue.transformAssetUrls = {
-            img: 'src',
-            image: 'xlink:href',
-            'b-avatar': 'src',
-            'b-img': 'src',
-            'b-img-lazy': ['src', 'blank-src'],
-            'b-card': 'img-src',
-            'b-card-img': 'src',
-            'b-card-img-lazy': ['src', 'blank-src'],
-            'b-carousel-slide': 'img-src',
-            'b-embed': 'src'
-          };
-        }
-      }
-    }
-  },
+  build: NuxtBuildConfig,
 
   // Hosting
   server: {
@@ -109,12 +54,7 @@ const config = {
   },
 
   // Vue-Router Configuration
-  router: {
-    base: '/',
-    routeNameSplitter: '/',
-    mode: 'history',
-    middleware: 'auth'
-  },
+  router: NuxtRouterConfig,
 
   layoutTransition: {
     name: 'default',
@@ -138,9 +78,13 @@ const config = {
     typeCheck: {
       eslint: {
         files: './**/*.{ts,js,vue}',
-        exclude: 'node_modules/*'
+        exclude: ['node_modules/*', 'types']
       }
     }
+  },
+
+  eslint: {
+    exclude: 'types/*'
   },
 
   watchers: {
@@ -150,40 +94,16 @@ const config = {
     }
   },
 
-  env: {
-    TARGET_STAGE: process.env.TARGET_STAGE || 'dev'
-  },
+  publicRuntimeConfig: {},
 
-  publicRuntimeConfig: {
-    publicKey: process.env.FAUNADB_PUBLIC_KEY
-  },
+  serverMiddleware: NuxtServerMiddlewareConfig,
 
-  serverMiddleware: [
-    // Will register file from project server-middleware directory to handle /auth/* requires
-    { path: '/auth', handler: '~/server-middleware/auth/index.ts' }
-  ]
+  apollo: NuxtApolloConfig
 } as NuxtConfig;
 
 // some dev only options
 if (process.env.TARGET_STAGE === 'dev') {
   // config.buildModules?.push('~/modules/ngrok', '~/modules/bot-api');
-
-  config.proxy = {
-    disableHostCheck: true,
-    '/api': {
-      target: process.env.API_URL ?? 'http://localhost:3000', // set a custom api url in Dockerfile if you need to
-      changeOrigin: process.env.SSR || false,
-      secure: false,
-      pathRewrite: {
-        '^/api': ''
-      },
-      onProxyReq(request: any) {
-        request.setHeader('origin', '*');
-        request.setHeader('Accept', 'application/json');
-        request.setHeader('Content-Type', 'application/json');
-      }
-    }
-  };
 }
 
 export default config;
