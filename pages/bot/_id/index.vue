@@ -36,10 +36,11 @@
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator';
-import getBot from './get.graphql';
-import updateBot from './update.graphql';
+import getBot from './get_bot.graphql';
+import updateBot from './update_bot.graphql';
 import InfoTab from '~/components/info.vue';
 import Sidebar from '~/components/sidebar.vue';
+import { Bots } from '~/types/types';
 
 @Component({
   name: 'InfoBot',
@@ -54,16 +55,14 @@ import Sidebar from '~/components/sidebar.vue';
   }
 })
 export default class InfoBot extends Vue {
-  bot = {
-    id: '',
+  bot: Pick<Bots, 'name' | 'description'> = {
     name: '',
-    description: '',
-    order: [] as string[]
+    description: ''
   };
 
   fetch() {
     try {
-      const botObserver = this.$apollo.subscribe<{ bots_by_pk: Omit<Record<string, any>, '__typename'> }>({
+      const botObserver = this.$apollo.subscribe<{ bots_by_pk: Pick<Bots, 'name' | 'description'> }>({
         query: getBot,
         variables: {
           id: this.$route.params.id
@@ -79,16 +78,15 @@ export default class InfoBot extends Vue {
 
   async update(bot) {
     const toUpdate = { ...this.bot, ...bot };
-    console.log(toUpdate);
     try {
-      const updated = await this.$apollo.mutate({
+      await this.$apollo.mutate<{ updated_at: string }>({
         mutation: updateBot,
         variables: {
-          id: this.bot.id,
+          id: this.$route.params.id,
           data: toUpdate
         }
       });
-      console.log(`Bot updated at ${updated}`);
+      this.$toast.success('Update successful!');
     } catch (e) {
       console.log(e);
       // todo error handling
@@ -96,7 +94,7 @@ export default class InfoBot extends Vue {
   }
 
   pushStart() {
-    return this.$router.push(`/v2/bot/${this.bot.id}/interaction/${this.bot.order[0]}`);
+    return this.$router.push(`/v2/bot/${this.$route.params.id}/interaction/1`);
   }
 }
 </script>

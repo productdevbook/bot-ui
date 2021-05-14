@@ -20,7 +20,7 @@
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator';
-import getBots from './bots.graphql';
+import getBots from './get_bots.graphql';
 import ListGroup from '~/components/list/group.vue';
 import ListItem from '~/components/list/item.vue';
 import Search from '~/components/search.vue';
