@@ -5,12 +5,20 @@ $fa-font-path: "../../static/webfonts";
 @import "assets/scss/mixins";
 @import "assets/scss/theme";
 
-#__nuxt, #__layout {
-  @apply w-full h-full;
+
+:root {
+  background: linear-gradient(#16161d, #1f1f3a, #3b2f4a);
+  color: $f;
+
+  #app, html, body, #__nuxt, #__layout {
+    @apply w-full h-full flex justify-center items-center;
+    background: linear-gradient(#16161d, #1f1f3a, #3b2f4a);
+    color: $f;
+  }
 }
 
 #app {
-  @apply w-full h-full flex justify-center items-center p-8;
+  @apply p-8;
 }
 
 html, body {
@@ -21,7 +29,9 @@ html, body {
   width: 100%;
   word-break: break-word;
   overflow-x: hidden;
+  // fluid font: font-size: calc(16px + (24 - 16) * (100vw - 360px) / (1440 - 360));
   font-size: 1rem;
+  overflow-y: hidden;
 
   // Scrollbar styling
   // FF styling
@@ -94,5 +104,35 @@ html, body {
   .btn-labeled {
     padding-top: 0;
     padding-bottom: 0;
+  }
+
+  .btn {
+    @apply mx-2
+    my-2
+    transition
+    duration-150
+    ease-in-out
+    focus:outline-none
+    rounded
+    text-white
+    border border-gray-300
+    hover:bg-gray-300
+    hover:text-black
+    px-6
+    py-2;
+  }
+
+  .btn-disabled {
+    @apply mx-2
+    my-2
+    pointer-events-none
+    transition
+    duration-150
+    ease-in-out
+    rounded
+    text-gray-500
+    border border-gray-500
+    px-6
+    py-2;
   }
 }
