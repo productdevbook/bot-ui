@@ -1,6 +1,6 @@
 <template>
   <div class="w-full">
-    <div class="rounded relative">
+    <div class="rounded relative w-full">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         class="text-gray-500 absolute ml-4 top-0 bottom-0 m-auto icon icon-tabler icon-tabler-search"

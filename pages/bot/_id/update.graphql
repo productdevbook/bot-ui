@@ -1,0 +1,7 @@
+mutation update_bot($id: uuid, $data: bots_set_input) {
+  update_bots(_set: $data, where: {id: $id}) {
+    returning {
+      updated_at
+    }
+  }
+}

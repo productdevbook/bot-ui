@@ -1,0 +1,6 @@
+{
+  bots_by_pk(id: $id) {
+    name
+    description
+  }
+}

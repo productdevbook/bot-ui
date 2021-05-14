@@ -5,7 +5,7 @@
       active ? 'bg-green-700 hover:bg-green-800' : 'bg-gray-800 hover:bg-gray-600',
       truncate ? 'flex justify-center bg-transparent' : 'rounded shadow'
     ]"
-    class="pointer px-3 py-1"
+    class="pointer px-4 py-2"
     @click="$emit('click', element.id)"
   >
     <slot name="avatar"></slot>
