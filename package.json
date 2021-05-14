@@ -14,7 +14,9 @@
     "lint": "yarn lint:js",
     "test": "exit 0"
   },
-  "dependencies": {},
+  "dependencies": {
+    "vuex-persistedstate": "^4.0.0-beta.3"
+  },
   "devDependencies": {
     "@fortawesome/fontawesome-free": "^5.15.3",
     "@graphql-codegen/cli": "^1.21.4",
@@ -42,6 +44,7 @@
     "graphql": "^15.5.0",
     "graphql-tag": "^2.12.4",
     "jest": "^26.6.3",
+    "js-cookie": "^2.2.1",
     "jsonwebtoken": "^8.5.1",
     "node-sass": "^6.0.0",
     "nuxt": "^2.15.3",

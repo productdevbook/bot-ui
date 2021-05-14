@@ -29,7 +29,11 @@ const config = {
   css: ['@fortawesome/fontawesome-free/css/all.css'],
 
   // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
-  plugins: [],
+  plugins: [
+    {
+      src: '~/plugins/vuex-persisted-state/persisted.ts'
+    }
+  ],
 
   // Auto import components (https://go.nuxtjs.dev/config-components)
   // if you're using true instead of paths make sure you understand that component names are created in accordance to directory structure
