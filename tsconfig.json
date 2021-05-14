@@ -36,7 +36,7 @@
     "node_modules",
     ".nuxt",
     "dist",
-    "./types/**/*"
+    "./types/types.ts"
   ],
   "files": ["graphql.d.ts"]
 }

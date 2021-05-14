@@ -91,3 +91,6 @@ sw.*
 
 # Db-Data
 hasura/db_data/
+
+# Codegen types
+types/types.ts
