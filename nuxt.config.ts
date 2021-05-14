@@ -7,7 +7,8 @@ import {
   NuxtHeaderConfig,
   NuxtPluginsConfig,
   NuxtRouterConfig,
-  NuxtServerMiddlewareConfig
+  NuxtServerMiddlewareConfig,
+  NuxtToasterConfig
 } from './config';
 
 const dev = process.env.TARGET_STAGE === 'dev' || true;
@@ -98,7 +99,9 @@ const config = {
 
   serverMiddleware: NuxtServerMiddlewareConfig,
 
-  apollo: NuxtApolloConfig
+  apollo: NuxtApolloConfig,
+
+  toast: NuxtToasterConfig
 } as NuxtConfig;
 
 // some dev only options

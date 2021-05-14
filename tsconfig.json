@@ -27,7 +27,8 @@
       "@nuxt/types",
       "@types",
       "vue-apollo/types",
-      "@nuxtjs/apollo/types"
+      "@nuxtjs/apollo/types",
+      "@nuxtjs/toast"
     ]
   },
   "exclude": [
