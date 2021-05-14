@@ -1,11 +1,17 @@
 overwrite: true
+hooks:
+  afterAllFileWrite:
+    - prettier --write
+
 schema:
-  - https://graphql.fauna.com/graphql:
+  - http://localhost:8080/v1/graphql:
       headers:
-        Authorization: "Basic Zm5BRUpCdGl5TkFDQkFlci1EeWhIV1RTV1I0QWNPYWphcmhucGNVTTpicmFrcy1ib3RzOnNlcnZlcg=="
+        x-hasura-admin-secret: "braksadminsecretkey"
 generates:
-  types/graphql.d.ts:
-    - typescript-graphql-files-modules
+  # types/graphql.d.ts:
+  #  plugins:
+  #    - typescript-graphql-files-modules
   types/types.ts:
-    - typescript
-    - typescript-operations
+    plugins:
+      - typescript
+      - typescript-operations
