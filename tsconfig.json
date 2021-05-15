@@ -25,7 +25,6 @@
     },
     "types": [
       "@types/js-cookie",
-      "@types/graphql",
       "vue-apollo/types",
       "@nuxt/types",
       "@nuxtjs/apollo/types",
