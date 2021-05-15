@@ -1,19 +1,14 @@
-import { JsonWebToken } from '../utils/jwt';
+import serverlessRefreshToken from '../serverless-functions/refresh-token';
 
 // Refresh JWT
-export default (req: any, res: any) => {
-  try {
-    const token = req.headers?.authorization?.split(' ');
-    if (!token) throw new Error('No JWT token found.');
-    const accessToken = JsonWebToken.refresh(token[1], {
-      verify: {
-        audience: JsonWebToken.options.audience,
-        issuer: JsonWebToken.options.issuer
-      }
-    });
-    return res.status(200).json({ accessToken });
-  } catch (e) {
-    console.log(e);
-    return res.status(404).send({ message: 'Could not refresh JWT. Session terminated.' });
+export default ({ headers }: { headers: Record<string, string> }, res: any) => {
+  const accessToken = serverlessRefreshToken(headers);
+  const vercelEnv = typeof res.status !== 'undefined';
+  if (accessToken) {
+    if (vercelEnv) return res.status(200).json({ accessToken });
+    return res.succeed({ statusCode: '200', body: JSON.stringify({ accessToken }) });
   }
+  const response = { message: 'Could not refresh JWT.' };
+  if (vercelEnv) return res.status(404).send(response);
+  return res.fail({ statusCode: '404', body: JSON.stringify({ message: 'Could not refresh JWT.' }) });
 };
