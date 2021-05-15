@@ -1,12 +1,7 @@
-import fs from 'fs';
-import path from 'path';
 import { Jwt } from '../server-middleware/auth/jwt';
 
 // Refresh JWT
-const secretKey = process.env.RS256_SECRET_KEY;
-const publicKey = fs.readFileSync(path.join(__dirname, '/../../public.key.pub'), 'utf8');
-if (!secretKey || !publicKey) throw new Error('Public/Secret key is undefined.');
-const jwt = new Jwt(secretKey, publicKey);
+const jwt = new Jwt();
 export default (req: any, res: any) => {
   try {
     const token = req.headers?.authorization?.split(' ');

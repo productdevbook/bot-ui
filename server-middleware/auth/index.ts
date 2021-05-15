@@ -1,5 +1,3 @@
-import fs from 'fs';
-import path from 'path';
 import { gql } from 'graphql-tag';
 import bodyParser from 'body-parser';
 import express from 'express';
@@ -7,11 +5,8 @@ import { execute, makePromise } from 'apollo-link';
 import link from './httplink';
 import { Jwt } from './jwt';
 
-const secretKey = process.env.RS256_SECRET_KEY;
-const publicKey = fs.readFileSync(path.join(__dirname, '/../../public.key.pub'), 'utf8');
-if (!secretKey || !publicKey) throw new Error('Public/Secret key is undefined.');
 const app = express();
-const jwt = new Jwt(secretKey, publicKey);
+const jwt = new Jwt();
 const operation = {
   context: {
     headers: {

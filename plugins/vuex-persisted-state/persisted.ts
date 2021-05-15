@@ -3,12 +3,14 @@ import * as Cookie from 'js-cookie';
 import cookie from 'cookie';
 import { Plugin } from '@nuxt/types';
 
+const client = process.client || process.browser;
+
 function storage(req: Record<string, any>, res: any) {
   if (process.env.SSR) {
     return {
       getItem: (key: string) => {
         // See https://nuxtjs.org/guide/plugins/#using-process-flags
-        if (!process.client || !process.browser) {
+        if (!client) {
           const parsedCookies = cookie.parse(req.headers.cookie || '');
           return parsedCookies[key];
         } else {
@@ -16,7 +18,7 @@ function storage(req: Record<string, any>, res: any) {
         }
       },
       setItem: (key: string, state: string) => {
-        process.client || process.browser
+        (client || process.static)
           ? Cookie.set(key, state, { expires: 7, secure: false, path: '/' })
           : res.setHeader('Set-Cookie', cookie.serialize(key, state, { secure: false, path: '/' }));
       },
