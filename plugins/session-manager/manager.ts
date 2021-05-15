@@ -23,7 +23,6 @@ export class SessionManager {
     $store: Store<any>,
     refreshInterval: number
   ) {
-    console.log($apolloHelpers);
     this.$apolloHelpers = $apolloHelpers;
     this.$toast = $toast;
     this.redirect = redirect;
