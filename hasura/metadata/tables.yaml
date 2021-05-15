@@ -5,6 +5,14 @@
   - name: user
     using:
       foreign_key_constraint_on: user_id
+  array_relationships:
+  - name: interactions
+    using:
+      foreign_key_constraint_on:
+        column: bot_id
+        table:
+          schema: public
+          name: interactions
   insert_permissions:
   - role: user
     permission:
@@ -37,6 +45,63 @@
       columns:
       - description
       - name
+      filter:
+        user_id:
+          _eq: X-Hasura-User-Id
+      check:
+        user_id:
+          _eq: X-Hasura-User-Id
+  delete_permissions:
+  - role: user
+    permission:
+      filter:
+        user_id:
+          _eq: X-Hasura-User-Id
+- table:
+    schema: public
+    name: interactions
+  object_relationships:
+  - name: bot
+    using:
+      foreign_key_constraint_on: bot_id
+  - name: user
+    using:
+      manual_configuration:
+        remote_table:
+          schema: public
+          name: users
+        column_mapping:
+          user_id: id
+  insert_permissions:
+  - role: user
+    permission:
+      check:
+        user_id:
+          _eq: X-Hasura-User-Id
+      columns:
+      - description
+      - name
+      - start
+      backend_only: false
+  select_permissions:
+  - role: user
+    permission:
+      columns:
+      - bot_id
+      - description
+      - id
+      - name
+      - start
+      filter:
+        user_id:
+          _eq: X-Hasura-User-Id
+  update_permissions:
+  - role: user
+    permission:
+      columns:
+      - description
+      - name
+      - start
       filter:
         user_id:
           _eq: X-Hasura-User-Id
