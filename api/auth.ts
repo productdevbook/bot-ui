@@ -9,5 +9,5 @@ export default async ({ body }: { body: string }, res: any) => {
   }
   const response = { message: 'Authentication failed.' };
   if (vercelEnv) return res.status(401).send(response);
-  return res.fail({ statusCode: '401', body: JSON.stringify({ message: 'Authentication failed.' }) });
+  return res.fail({ statusCode: '401', body: JSON.stringify(response) });
 };

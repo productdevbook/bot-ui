@@ -1,6 +1,8 @@
 import { ApolloHelpers } from '@nuxtjs/apollo';
 import { timer, Subscription } from 'rxjs';
 import { execute, makePromise } from 'apollo-link';
+import { createHttpLink } from 'apollo-link-http';
+import fetch from 'node-fetch';
 import { Store } from 'vuex';
 import { Toasted } from 'vue-toasted/types';
 import { Context } from '@nuxt/types';
@@ -15,19 +17,22 @@ export class SessionManager {
   $store: Store<any>;
   refreshSub?: Subscription;
   refreshInterval = 600;
+  endpoint: string = 'http://localhost:8080/v1/graphql';
 
   constructor(
     $apolloHelpers: ApolloHelpers,
     $toast: Toasted,
     redirect: Context['redirect'],
     $store: Store<any>,
-    refreshInterval: number
+    refreshInterval: number,
+    endpoint: string
   ) {
     this.$apolloHelpers = $apolloHelpers;
     this.$toast = $toast;
     this.redirect = redirect;
     this.$store = $store;
     this.refreshInterval = refreshInterval;
+    this.endpoint = endpoint;
   }
 
   async login(username: string, password: string): Promise<boolean> {
@@ -41,7 +46,16 @@ export class SessionManager {
           }
         }
       };
-      const response = await makePromise(execute(link, options));
+      const response = await makePromise(
+        execute(
+          createHttpLink({
+            // You should use an absolute URL here
+            uri: this.endpoint,
+            fetch: fetch as any
+          }),
+          options
+        )
+      );
       await this.$apolloHelpers.onLogin(response.data?.login.accessToken);
       this.startSession();
       return true;
@@ -54,7 +68,7 @@ export class SessionManager {
 
   startSession() {
     const expiry = (this.refreshInterval - 60) * 1000;
-    this.refreshSub = timer(1, expiry).subscribe(() => this.refreshSession());
+    this.refreshSub = timer(expiry, expiry).subscribe(() => this.refreshSession());
     return this;
   }
 

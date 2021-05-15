@@ -25,7 +25,14 @@ declare module '@nuxt/types' {
 }
 
 const sessionManagerPlugin: Plugin = ({ $apolloHelpers, $toast, redirect, store, $config }, inject: Inject) => {
-  const sessionManager = new SessionManager($apolloHelpers, $toast, redirect, store, $config.refreshInterval);
+  const sessionManager = new SessionManager(
+    $apolloHelpers,
+    $toast,
+    redirect,
+    store,
+    $config.refreshInterval,
+    $config.graphQlEndpoint
+  );
 
   inject('sessionManager', sessionManager);
   inject('sm', sessionManager);
