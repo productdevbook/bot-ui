@@ -60,7 +60,6 @@
 </template>
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator';
-import login from '~/pages/login.graphql';
 
 @Component({
   name: 'LoginForm',
@@ -80,22 +79,15 @@ export default class LoginForm extends Vue {
   async submit() {
     this.loading = true;
     try {
-      const res = await this.$apollo.mutate<{ login: { accessToken: string } }>({
-        mutation: login,
-        variables: {
-          data: {
-            username: this.username,
-            password: this.password
-          }
-        }
-      });
-      await this.$apolloHelpers.onLogin(res.data.login.accessToken);
-      await this.$store.dispatch('user/login', { id: '0', username: this.username, roles: ['user'] });
-      await this.$router.replace('/');
+      const login = await this.$sm.login(this.username, this.password);
+      if (login) {
+        await this.$store.dispatch('user/login', { id: '0', username: this.username, roles: ['user'] });
+        return await this.$router.replace('/');
+      }
     } catch (e) {
       console.log(e);
-      this.error = true;
     }
+    this.error = true;
     this.loading = false;
   }
 }

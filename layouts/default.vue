@@ -40,10 +40,6 @@ export default class V2Layout extends Vue {
   visibleSidebar: boolean = false;
   stars: boolean = false;
 
-  mounted() {
-    this.$sm.startSession();
-  }
-
   beforeDestroy() {
     this.$sm.stopSession();
   }

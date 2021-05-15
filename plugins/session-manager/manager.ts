@@ -1,28 +1,61 @@
 import { ApolloHelpers } from '@nuxtjs/apollo';
 import { timer, Subscription } from 'rxjs';
 import { execute, makePromise } from 'apollo-link';
+import { Store } from 'vuex';
 import { Toasted } from 'vue-toasted/types';
 import { Context } from '@nuxt/types';
 import refreshToken from './refresh_token.graphql';
+import login from './login.graphql';
 import link from '~/utils/httplink';
 
 export class SessionManager {
   $apolloHelpers: ApolloHelpers;
   $toast: Toasted;
   redirect: Context['redirect'];
+  $store: Store<any>;
   refreshSub?: Subscription;
   refreshInterval = 600;
 
-  constructor($apolloHelpers: ApolloHelpers, $toast: Toasted, redirect: Context['redirect'], refreshInterval: number) {
+  constructor(
+    $apolloHelpers: ApolloHelpers,
+    $toast: Toasted,
+    redirect: Context['redirect'],
+    $store: Store<any>,
+    refreshInterval: number
+  ) {
+    console.log($apolloHelpers);
     this.$apolloHelpers = $apolloHelpers;
     this.$toast = $toast;
     this.redirect = redirect;
+    this.$store = $store;
     this.refreshInterval = refreshInterval;
+  }
+
+  async login(username: string, password: string): Promise<boolean> {
+    try {
+      const options = {
+        query: login,
+        variables: {
+          data: {
+            username,
+            password
+          }
+        }
+      };
+      const response = await makePromise(execute(link, options));
+      await this.$apolloHelpers.onLogin(response.data?.login.accessToken);
+      this.startSession();
+      return true;
+    } catch (e) {
+      console.log(e);
+    }
+
+    return false;
   }
 
   startSession() {
     const expiry = (this.refreshInterval - 60) * 1000;
-    this.refreshSub = timer(1, expiry).subscribe(this.refreshSession);
+    this.refreshSub = timer(1, expiry).subscribe(() => this.refreshSession());
     return this;
   }
 
@@ -48,9 +81,9 @@ export class SessionManager {
       }
     } catch (e) {
       console.log(e);
+      this.$toast.error('There was an issue. We will have to log you out, sorry.');
+      await this.$apolloHelpers.onLogout();
+      await this.redirect('/login');
     }
-    this.$toast.error('There was an issue. We will have to log you out, sorry.');
-    await this.$apolloHelpers.onLogout();
-    await this.redirect('/login');
   }
 }
