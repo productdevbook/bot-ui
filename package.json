@@ -14,7 +14,9 @@
     "lint": "yarn lint:js",
     "test": "exit 0"
   },
-  "dependencies": {},
+  "dependencies": {
+    "nuxt": "^2.15.3"
+  },
   "devDependencies": {
     "@fortawesome/fontawesome-free": "^5.15.3",
     "@graphql-codegen/cli": "^1.21.4",
