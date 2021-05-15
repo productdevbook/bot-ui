@@ -3,10 +3,10 @@ import { execute, makePromise } from 'apollo-link';
 import { JsonWebToken } from '../utils/jwt';
 import link from '../utils/httplink';
 
-export default async (body: string) => {
+export default async (body: any) => {
   const {
     input: { data }
-  } = JSON.parse(body);
+  } = body;
   const options = {
     query: gql`
       query get_user($username: String!, $password: String!) {

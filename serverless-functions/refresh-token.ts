@@ -1,7 +1,7 @@
 import { JsonWebToken } from '../utils/jwt';
 
 // Refresh JWT
-export default (headers: Record<string, string>) => {
+export default (headers: any) => {
   try {
     const token = headers.authorization?.split(' ');
     if (!token) throw new Error('No JWT token found.');
