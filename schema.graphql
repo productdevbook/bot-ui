@@ -6,6 +6,10 @@ schema {
   subscription: subscription_root
 }
 
+type RefreshedToken {
+  accessToken: String!
+}
+
 type Token {
   accessToken: String!
 }
@@ -97,10 +101,10 @@ type interactions {
   description: String
   id: uuid!
   name: String!
-  start: Boolean
+  start: Boolean!
   "An object relationship"
-  user: users
-  user_id: uuid
+  user: users!
+  user_id: uuid!
 }
 
 "aggregated selection of \"interactions\""
@@ -209,6 +213,8 @@ type mutation_root {
   ): users
   "perform the action: \"login\""
   login(data: LoginData!): Token
+  "perform the action: \"refreshToken\""
+  refreshToken: RefreshedToken
   "update data of the table: \"bots\""
   update_bots(
     "sets the columns of the filtered rows to the given values"
@@ -458,6 +464,11 @@ type users {
   id: uuid!
   last_seen: timestamptz!
   password: String!
+  "A computed field, executes function \"password_matches\""
+  pwd_match(
+    "input parameters for function \"password_matches\""
+    args: password_matches_args!
+  ): Boolean
   username: String!
 }
 
@@ -874,6 +885,10 @@ input json_comparison_exp {
   _lte: json
   _neq: json
   _nin: [json!]
+}
+
+input password_matches_args {
+  pwd: String
 }
 
 "expression to compare columns of type timestamptz. All fields are combined with logical 'AND'."
