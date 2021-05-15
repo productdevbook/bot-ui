@@ -14,6 +14,7 @@
     "strict": true,
     "noEmit": true,
     "experimentalDecorators": true,
+    "skipLibCheck": true,
     "baseUrl": ".",
     "paths": {
       "~/*": [
@@ -26,6 +27,7 @@
     "types": [
       "@types/js-cookie",
       "vue-apollo/types",
+      "vue-cli-plugin-apollo/types",
       "@nuxt/types",
       "@nuxtjs/apollo/types",
       "@nuxtjs/toast"
