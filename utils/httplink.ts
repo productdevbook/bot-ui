@@ -4,7 +4,7 @@ import fetch from 'node-fetch';
 
 const httpLink = createHttpLink({
   // You should use an absolute URL here
-  uri: process.env.GRAPHQL_ENDPOINT ?? 'http://localhost:8080/v1/graphql',
+  uri: process.env.GRAPHQL_ENDPOINT || 'https://braks-bot.hasura.app/v1/graphql',
   fetch: fetch as any
 });
 
