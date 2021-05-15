@@ -12,6 +12,7 @@ import {
 
 const dev = process.env.TARGET_STAGE === 'dev' || true;
 const ssr = process.env.SSR === 'true' || false;
+const target = process.env.RENDER_TARGET || 'static';
 
 const config = {
   dev,
@@ -22,7 +23,7 @@ const config = {
   telemetry: false,
 
   // Target (https://go.nuxtjs.dev/config-target)
-  target: ssr ? 'server' : 'static',
+  target,
 
   // Global page headers (https://go.nuxtjs.dev/config-head)
   head: NuxtHeaderConfig,
