@@ -27,9 +27,8 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'nuxt-property-decorator';
 import '@/assets/scss/app.scss';
-import { timer, Subscription } from 'rxjs';
+import { Component, Vue } from 'nuxt-property-decorator';
 
 @Component({
   name: 'V2Layout',
@@ -40,35 +39,17 @@ import { timer, Subscription } from 'rxjs';
 export default class V2Layout extends Vue {
   visibleSidebar: boolean = false;
   stars: boolean = false;
-  interval?: Subscription;
 
   mounted() {
-    this.refreshSession();
+    this.$sm.startSession();
   }
 
   beforeDestroy() {
-    this.interval.unsubscribe();
+    this.$sm.stopSession();
   }
 
   hide(): void {
     this.visibleSidebar = false;
-  }
-
-  refreshSession() {
-    const expiry = (Number(this.$config.refreshInterval) - 60) * 1000;
-    this.interval = timer(1, expiry).subscribe(async () => {
-      try {
-        const response = await fetch('/auth/refresh-token', {
-          headers: {
-            Authorization: `Bearer ${this.$apolloHelpers.getToken()}`
-          }
-        });
-        console.log(response);
-      } catch (e) {
-        console.log(e);
-        // await this.$router.replace('/login');
-      }
-    });
   }
 
   async logout() {

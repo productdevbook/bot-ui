@@ -51,8 +51,8 @@
       </transition>
       <button :disabled="disabled" :class="disabled ? 'bg-gray-700 btn-disabled' : 'bg-green-500 btn'" @click.prevent="submit">
         <transition-group name="fade" mode="out-in">
-          <span v-show="$apollo.loading" key="loading"> <i class="fas fa-spinner fa-spin"></i></span>
-          <span v-show="!$apollo.loading" key="login-text">Login</span>
+          <span v-show="loading" key="loading"> <i class="fas fa-spinner fa-spin"></i></span>
+          <span v-show="!loading" key="login-text">Login</span>
         </transition-group>
       </button>
     </div>
@@ -71,12 +71,14 @@ export default class LoginForm extends Vue {
   username = '';
   password = '';
   error = false;
+  loading = false;
 
   get disabled() {
     return this.error || this.password === '' || this.username === '';
   }
 
   async submit() {
+    this.loading = true;
     try {
       const res = await this.$apollo.mutate<{ login: { accessToken: string } }>({
         mutation: login,
@@ -94,6 +96,7 @@ export default class LoginForm extends Vue {
       console.log(e);
       this.error = true;
     }
+    this.loading = false;
   }
 }
 </script>
