@@ -8,8 +8,8 @@ export class Jwt {
   options = {
     algorithm: 'RS256' as Algorithm,
     expiresIn: Number(process.env.REFRESH_INTERVAL || 600) * 1000,
-    issuer: '@braks',
-    audience: 'https://bot-ui-nu.vercel.app/login'
+    issuer: 'braks',
+    audience: 'https://bot-ui.io'
   };
 
   constructor() {
@@ -20,11 +20,11 @@ export class Jwt {
     const cipher2 = createDecipheriv(algorithm, process.env.ENCRYPTION_KEY || '', process.env.ENCRYPTION_IV || '');
 
     const { pk, sk } = AuthConfig;
-    this.secret = this._decipherKey(cipher1, sk);
-    this.public = this._decipherKey(cipher2, pk);
+    this.secret = Jwt._decipherKey(cipher1, sk);
+    this.public = Jwt._decipherKey(cipher2, pk);
   }
 
-  private _decipherKey(cipher: Decipher, key: string) {
+  private static _decipherKey(cipher: Decipher, key: string) {
     let decrypted = cipher.update(key, 'base64', 'utf8');
 
     decrypted += cipher.final('utf8');
@@ -46,6 +46,8 @@ export class Jwt {
 
     return sign(claims, this.secret, this.options);
   }
+
+  verify = verify;
 
   refresh(token: string, refreshOptions?: { verify: VerifyOptions }) {
     const payload = verify(token, this.public, refreshOptions?.verify) as Record<string, unknown>;
