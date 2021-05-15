@@ -1,9 +1,9 @@
 import { gql } from 'graphql-tag';
 import { execute, makePromise } from 'apollo-link';
-import { Jwt } from '../server-middleware/auth/jwt';
-import link from '../server-middleware/auth/httplink';
+import { VercelRequest, VercelResponse } from '@vercel/node';
+import { JsonWebToken } from '../utils/jwt';
+import link from '../utils/httplink';
 
-const jwt = new Jwt();
 const operation = {
   context: {
     headers: {
@@ -12,7 +12,7 @@ const operation = {
   }
 };
 
-export default async (req: any, res: any) => {
+export default async (req: VercelRequest, res: VercelResponse) => {
   const {
     input: { data }
   } = req.body;
@@ -36,7 +36,7 @@ export default async (req: any, res: any) => {
   if (response.data?.users.length) {
     const user = response.data.users[0];
     if (user.password === data.password) {
-      const accessToken = jwt.sign(user);
+      const accessToken = JsonWebToken.sign(user);
       console.log(`Authentication successful! Logged in as ${user.username}`);
       return res.status(200).json({ accessToken });
     }

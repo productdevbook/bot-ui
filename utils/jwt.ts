@@ -1,6 +1,6 @@
 import { createDecipheriv, Decipher } from 'crypto';
 import { sign, verify, Algorithm, VerifyOptions } from 'jsonwebtoken';
-import AuthConfig from '../../config/auth';
+import AuthConfig from '../config/auth';
 
 export class Jwt {
   secret = '';
@@ -58,3 +58,5 @@ export class Jwt {
     return sign(payload, this.secret);
   }
 }
+
+export const JsonWebToken = new Jwt();
