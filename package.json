@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "dev": "nuxt",
-    "build": "yarn run generate-types && nuxt build",
+    "build": "yarn run generate-types && nuxt generate",
     "start": "nuxt start",
     "generate": "nuxt generate",
     "generate-types": "graphql-codegen --config codegen.yml -r dotenv/config",
