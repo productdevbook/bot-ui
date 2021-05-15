@@ -5,7 +5,6 @@ import AuthConfig from '../../config/auth';
 export class Jwt {
   secret = '';
   public = '';
-  decipher: Decipher;
   options = {
     algorithm: 'RS256' as Algorithm,
     expiresIn: Number(process.env.REFRESH_INTERVAL) * 1000,
@@ -17,19 +16,20 @@ export class Jwt {
     if (!process.env.ENCRYPTION_KEY || !process.env.ENCRYPTION_IV) throw new Error('Encryption key/iv not set.');
 
     const algorithm = 'aes-128-cbc';
-    this.decipher = createDecipheriv(algorithm, process.env.ENCRYPTION_KEY || '', process.env.ENCRYPTION_IV || '');
+    const cipher1 = createDecipheriv(algorithm, process.env.ENCRYPTION_KEY || '', process.env.ENCRYPTION_IV || '');
+    const cipher2 = createDecipheriv(algorithm, process.env.ENCRYPTION_KEY || '', process.env.ENCRYPTION_IV || '');
 
     const { pk, sk } = AuthConfig;
-    this.secret = this.decipherKey(sk);
-    this.public = this.decipherKey(pk);
+    this.secret = this._decipherKey(cipher1, sk);
+    this.public = this._decipherKey(cipher2, pk);
   }
 
-  decipherKey(key: string) {
-    let decrypted = this.decipher.update(key, 'base64', 'utf8');
+  private _decipherKey(cipher: Decipher, key: string) {
+    let decrypted = cipher.update(key, 'base64', 'utf8');
 
-    decrypted += this.decipher.final('utf8');
+    decrypted += cipher.final('utf8');
 
-    return JSON.parse(decrypted);
+    return decrypted;
   }
 
   sign(user: Record<string, string>) {
