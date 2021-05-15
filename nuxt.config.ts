@@ -47,12 +47,6 @@ const config = {
   // Build Configuration (https://go.nuxtjs.dev/config-build)
   build: NuxtBuildConfig,
 
-  // Hosting
-  server: {
-    host: '0.0.0.0',
-    port: '8085'
-  },
-
   // Vue-Router Configuration
   router: NuxtRouterConfig,
 
@@ -112,6 +106,11 @@ const config = {
 
 // some dev only options
 if (process.env.TARGET_STAGE === 'dev') {
+  // Hosting
+  config.server = {
+    host: '0.0.0.0',
+    port: '8085'
+  };
   // config.buildModules?.push('~/modules/ngrok', '~/modules/bot-api');
 }
 
