@@ -5,7 +5,7 @@ export class Jwt {
   public = '';
   options = {
     algorithm: 'RS256' as Algorithm,
-    expiresIn: (Number(process.env.REFRESH_INTERVAL) ?? 300) * 1000,
+    expiresIn: Number(process.env.REFRESH_INTERVAL) * 1000,
     issuer: '@braks',
     audience: 'https://bot-ui-nu.vercel.app/login'
   };

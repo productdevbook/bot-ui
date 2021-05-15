@@ -55,7 +55,7 @@ export default class V2Layout extends Vue {
   }
 
   refreshSession() {
-    const expiry = ((Number(process.env.REFRESH_INTERVAL) ?? 300) - 60) * 1000;
+    const expiry = (Number(this.$config.refreshInterval) - 60) * 1000;
     this.interval = timer(1, expiry).subscribe(async () => {
       try {
         const response = await fetch('/auth/refresh-token', {
