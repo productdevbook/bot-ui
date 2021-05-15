@@ -1,247 +1,1001 @@
 # This file was generated based on ".graphqlconfig". Do not edit manually.
 
 schema {
-  query: Query
-  mutation: Mutation
+  query: query_root
+  mutation: mutation_root
+  subscription: subscription_root
 }
 
-type Bot {
-  "The document's ID."
-  _id: ID!
-  "The document's timestamp."
-  _ts: Long!
+type Token {
+  accessToken: String!
+}
+
+"columns and relationships of \"bots\""
+type bots {
+  created_at: timestamptz!
   description: String
+  id: uuid!
+  "An array relationship"
   interactions(
-    "The pagination cursor."
-    _cursor: String,
-    "The number of items to return per page."
-    _size: Int
-  ): InteractionPage!
+    "distinct select on columns"
+    distinct_on: [interactions_select_column!],
+    "limit the number of rows returned"
+    limit: Int,
+    "skip the first n rows. Use only with order_by"
+    offset: Int,
+    "sort the rows by one or more columns"
+    order_by: [interactions_order_by!],
+    "filter the rows returned"
+    where: interactions_bool_exp
+  ): [interactions!]!
+  "An aggregated array relationship"
+  interactions_aggregate(
+    "distinct select on columns"
+    distinct_on: [interactions_select_column!],
+    "limit the number of rows returned"
+    limit: Int,
+    "skip the first n rows. Use only with order_by"
+    offset: Int,
+    "sort the rows by one or more columns"
+    order_by: [interactions_order_by!],
+    "filter the rows returned"
+    where: interactions_bool_exp
+  ): interactions_aggregate!
   name: String!
-  order: [String!]
-  owner: User
+  updated_at: timestamptz!
+  "An object relationship"
+  user: users!
+  user_id: uuid!
 }
 
-"The pagination object for elements of type 'Bot'."
-type BotPage {
-  "A cursor for elements coming after the current page."
-  after: String
-  "A cursor for elements coming before the current page."
-  before: String
-  "The elements of type 'Bot' in this page."
-  data: [Bot]!
+"aggregated selection of \"bots\""
+type bots_aggregate {
+  aggregate: bots_aggregate_fields
+  nodes: [bots!]!
 }
 
-type Interaction {
-  "The document's ID."
-  _id: ID!
-  "The document's timestamp."
-  _ts: Long!
-  description: String!
-  name: String!
-  owner: Bot
+"aggregate fields of \"bots\""
+type bots_aggregate_fields {
+  count(columns: [bots_select_column!], distinct: Boolean): Int
+  max: bots_max_fields
+  min: bots_min_fields
 }
 
-"The pagination object for elements of type 'Interaction'."
-type InteractionPage {
-  "A cursor for elements coming after the current page."
-  after: String
-  "A cursor for elements coming before the current page."
-  before: String
-  "The elements of type 'Interaction' in this page."
-  data: [Interaction]!
-}
-
-type Mutation {
-  "Create a new document in the collection of 'Bot'"
-  createBot(
-    "'Bot' input values"
-    data: BotInput!
-  ): Bot!
-  "Create a new document in the collection of 'Interaction'"
-  createInteraction(
-    "'Interaction' input values"
-    data: InteractionInput!
-  ): Interaction!
-  createUser(input: CreateUserInput): User!
-  "Delete an existing document in the collection of 'Bot'"
-  deleteBot(
-    "The 'Bot' document's ID"
-    id: ID!
-  ): Bot
-  "Delete an existing document in the collection of 'Interaction'"
-  deleteInteraction(
-    "The 'Interaction' document's ID"
-    id: ID!
-  ): Interaction
-  "Delete an existing document in the collection of 'User'"
-  deleteUser(
-    "The 'User' document's ID"
-    id: ID!
-  ): User
-  login(data: LoginUserInput): String!
-  "Update an existing document in the collection of 'Bot'"
-  updateBot(
-    "'Bot' input values"
-    data: BotInput!,
-    "The 'Bot' document's ID"
-    id: ID!
-  ): Bot
-  "Update an existing document in the collection of 'Interaction'"
-  updateInteraction(
-    "'Interaction' input values"
-    data: InteractionInput!,
-    "The 'Interaction' document's ID"
-    id: ID!
-  ): Interaction
-  "Update an existing document in the collection of 'User'"
-  updateUser(
-    "'User' input values"
-    data: UserInput!,
-    "The 'User' document's ID"
-    id: ID!
-  ): User
-}
-
-type Query {
-  allBots(
-    "The pagination cursor."
-    _cursor: String,
-    "The number of items to return per page."
-    _size: Int
-  ): BotPage!
-  allUsers(
-    "The pagination cursor."
-    _cursor: String,
-    "The number of items to return per page."
-    _size: Int
-  ): UserPage!
-  "Find a document from the collection of 'Bot' by its id."
-  findBotByID(
-    "The 'Bot' document's ID"
-    id: ID!
-  ): Bot
-  "Find a document from the collection of 'Interaction' by its id."
-  findInteractionByID(
-    "The 'Interaction' document's ID"
-    id: ID!
-  ): Interaction
-  "Find a document from the collection of 'User' by its id."
-  findUserByID(
-    "The 'User' document's ID"
-    id: ID!
-  ): User
-}
-
-type User {
-  "The document's ID."
-  _id: ID!
-  "The document's timestamp."
-  _ts: Long!
-  bots(
-    "The pagination cursor."
-    _cursor: String,
-    "The number of items to return per page."
-    _size: Int
-  ): BotPage!
-  role: UserRole!
-  username: String!
-}
-
-"The pagination object for elements of type 'User'."
-type UserPage {
-  "A cursor for elements coming after the current page."
-  after: String
-  "A cursor for elements coming before the current page."
-  before: String
-  "The elements of type 'User' in this page."
-  data: [User]!
-}
-
-enum UserRole {
-  ADMIN
-  GUEST
-  USER
-}
-
-"'Bot' input values"
-input BotInput {
+"aggregate max on columns"
+type bots_max_fields {
+  created_at: timestamptz
   description: String
-  interactions: BotInteractionsRelation
+  id: uuid
+  name: String
+  updated_at: timestamptz
+  user_id: uuid
+}
+
+"aggregate min on columns"
+type bots_min_fields {
+  created_at: timestamptz
+  description: String
+  id: uuid
+  name: String
+  updated_at: timestamptz
+  user_id: uuid
+}
+
+"response of any mutation on the table \"bots\""
+type bots_mutation_response {
+  "number of affected rows by the mutation"
+  affected_rows: Int!
+  "data of the affected rows by the mutation"
+  returning: [bots!]!
+}
+
+"columns and relationships of \"interactions\""
+type interactions {
+  "An object relationship"
+  bot: bots!
+  bot_id: uuid!
+  description: String
+  id: uuid!
   name: String!
-  order: [String!]
-  owner: BotOwnerRelation
+  start: Boolean
+  "An object relationship"
+  user: users
+  user_id: uuid
 }
 
-"Allow manipulating the relationship between the types 'Bot' and 'Interaction'."
-input BotInteractionsRelation {
-  "Connect one or more documents of type 'Interaction' with the current document using their IDs."
-  connect: [ID]
-  "Create one or more documents of type 'Interaction' and associate them with the current document."
-  create: [InteractionInput]
-  "Disconnect the given documents of type 'Interaction' from the current document using their IDs."
-  disconnect: [ID]
+"aggregated selection of \"interactions\""
+type interactions_aggregate {
+  aggregate: interactions_aggregate_fields
+  nodes: [interactions!]!
 }
 
-"Allow manipulating the relationship between the types 'Bot' and 'User' using the field 'Bot.owner'."
-input BotOwnerRelation {
-  "Connect a document of type 'User' with the current document using its ID."
-  connect: ID
-  "Create a document of type 'User' and associate it with the current document."
-  create: UserInput
-  "If true, disconnects this document from 'User'"
-  disconnect: Boolean
+"aggregate fields of \"interactions\""
+type interactions_aggregate_fields {
+  count(columns: [interactions_select_column!], distinct: Boolean): Int
+  max: interactions_max_fields
+  min: interactions_min_fields
 }
 
-input CreateUserInput {
+"aggregate max on columns"
+type interactions_max_fields {
+  bot_id: uuid
+  description: String
+  id: uuid
+  name: String
+  user_id: uuid
+}
+
+"aggregate min on columns"
+type interactions_min_fields {
+  bot_id: uuid
+  description: String
+  id: uuid
+  name: String
+  user_id: uuid
+}
+
+"response of any mutation on the table \"interactions\""
+type interactions_mutation_response {
+  "number of affected rows by the mutation"
+  affected_rows: Int!
+  "data of the affected rows by the mutation"
+  returning: [interactions!]!
+}
+
+"mutation root"
+type mutation_root {
+  "delete data from the table: \"bots\""
+  delete_bots(
+    "filter the rows which have to be deleted"
+    where: bots_bool_exp!
+  ): bots_mutation_response
+  "delete single row from the table: \"bots\""
+  delete_bots_by_pk(id: uuid!): bots
+  "delete data from the table: \"interactions\""
+  delete_interactions(
+    "filter the rows which have to be deleted"
+    where: interactions_bool_exp!
+  ): interactions_mutation_response
+  "delete single row from the table: \"interactions\""
+  delete_interactions_by_pk(id: uuid!): interactions
+  "delete data from the table: \"users\""
+  delete_users(
+    "filter the rows which have to be deleted"
+    where: users_bool_exp!
+  ): users_mutation_response
+  "delete single row from the table: \"users\""
+  delete_users_by_pk(id: uuid!): users
+  "insert data into the table: \"bots\""
+  insert_bots(
+    "the rows to be inserted"
+    objects: [bots_insert_input!]!,
+    "on conflict condition"
+    on_conflict: bots_on_conflict
+  ): bots_mutation_response
+  "insert a single row into the table: \"bots\""
+  insert_bots_one(
+    "the row to be inserted"
+    object: bots_insert_input!,
+    "on conflict condition"
+    on_conflict: bots_on_conflict
+  ): bots
+  "insert data into the table: \"interactions\""
+  insert_interactions(
+    "the rows to be inserted"
+    objects: [interactions_insert_input!]!,
+    "on conflict condition"
+    on_conflict: interactions_on_conflict
+  ): interactions_mutation_response
+  "insert a single row into the table: \"interactions\""
+  insert_interactions_one(
+    "the row to be inserted"
+    object: interactions_insert_input!,
+    "on conflict condition"
+    on_conflict: interactions_on_conflict
+  ): interactions
+  "insert data into the table: \"users\""
+  insert_users(
+    "the rows to be inserted"
+    objects: [users_insert_input!]!,
+    "on conflict condition"
+    on_conflict: users_on_conflict
+  ): users_mutation_response
+  "insert a single row into the table: \"users\""
+  insert_users_one(
+    "the row to be inserted"
+    object: users_insert_input!,
+    "on conflict condition"
+    on_conflict: users_on_conflict
+  ): users
+  "perform the action: \"login\""
+  login(data: LoginData!): Token
+  "update data of the table: \"bots\""
+  update_bots(
+    "sets the columns of the filtered rows to the given values"
+    _set: bots_set_input,
+    "filter the rows which have to be updated"
+    where: bots_bool_exp!
+  ): bots_mutation_response
+  "update single row of the table: \"bots\""
+  update_bots_by_pk(
+    "sets the columns of the filtered rows to the given values"
+    _set: bots_set_input,
+    pk_columns: bots_pk_columns_input!
+  ): bots
+  "update data of the table: \"interactions\""
+  update_interactions(
+    "sets the columns of the filtered rows to the given values"
+    _set: interactions_set_input,
+    "filter the rows which have to be updated"
+    where: interactions_bool_exp!
+  ): interactions_mutation_response
+  "update single row of the table: \"interactions\""
+  update_interactions_by_pk(
+    "sets the columns of the filtered rows to the given values"
+    _set: interactions_set_input,
+    pk_columns: interactions_pk_columns_input!
+  ): interactions
+  "update data of the table: \"users\""
+  update_users(
+    "sets the columns of the filtered rows to the given values"
+    _set: users_set_input,
+    "filter the rows which have to be updated"
+    where: users_bool_exp!
+  ): users_mutation_response
+  "update single row of the table: \"users\""
+  update_users_by_pk(
+    "sets the columns of the filtered rows to the given values"
+    _set: users_set_input,
+    pk_columns: users_pk_columns_input!
+  ): users
+}
+
+"query root"
+type query_root {
+  "fetch data from the table: \"bots\""
+  bots(
+    "distinct select on columns"
+    distinct_on: [bots_select_column!],
+    "limit the number of rows returned"
+    limit: Int,
+    "skip the first n rows. Use only with order_by"
+    offset: Int,
+    "sort the rows by one or more columns"
+    order_by: [bots_order_by!],
+    "filter the rows returned"
+    where: bots_bool_exp
+  ): [bots!]!
+  "fetch aggregated fields from the table: \"bots\""
+  bots_aggregate(
+    "distinct select on columns"
+    distinct_on: [bots_select_column!],
+    "limit the number of rows returned"
+    limit: Int,
+    "skip the first n rows. Use only with order_by"
+    offset: Int,
+    "sort the rows by one or more columns"
+    order_by: [bots_order_by!],
+    "filter the rows returned"
+    where: bots_bool_exp
+  ): bots_aggregate!
+  "fetch data from the table: \"bots\" using primary key columns"
+  bots_by_pk(id: uuid!): bots
+  "fetch data from the table: \"interactions\""
+  interactions(
+    "distinct select on columns"
+    distinct_on: [interactions_select_column!],
+    "limit the number of rows returned"
+    limit: Int,
+    "skip the first n rows. Use only with order_by"
+    offset: Int,
+    "sort the rows by one or more columns"
+    order_by: [interactions_order_by!],
+    "filter the rows returned"
+    where: interactions_bool_exp
+  ): [interactions!]!
+  "fetch aggregated fields from the table: \"interactions\""
+  interactions_aggregate(
+    "distinct select on columns"
+    distinct_on: [interactions_select_column!],
+    "limit the number of rows returned"
+    limit: Int,
+    "skip the first n rows. Use only with order_by"
+    offset: Int,
+    "sort the rows by one or more columns"
+    order_by: [interactions_order_by!],
+    "filter the rows returned"
+    where: interactions_bool_exp
+  ): interactions_aggregate!
+  "fetch data from the table: \"interactions\" using primary key columns"
+  interactions_by_pk(id: uuid!): interactions
+  "fetch data from the table: \"users\""
+  users(
+    "distinct select on columns"
+    distinct_on: [users_select_column!],
+    "limit the number of rows returned"
+    limit: Int,
+    "skip the first n rows. Use only with order_by"
+    offset: Int,
+    "sort the rows by one or more columns"
+    order_by: [users_order_by!],
+    "filter the rows returned"
+    where: users_bool_exp
+  ): [users!]!
+  "fetch aggregated fields from the table: \"users\""
+  users_aggregate(
+    "distinct select on columns"
+    distinct_on: [users_select_column!],
+    "limit the number of rows returned"
+    limit: Int,
+    "skip the first n rows. Use only with order_by"
+    offset: Int,
+    "sort the rows by one or more columns"
+    order_by: [users_order_by!],
+    "filter the rows returned"
+    where: users_bool_exp
+  ): users_aggregate!
+  "fetch data from the table: \"users\" using primary key columns"
+  users_by_pk(id: uuid!): users
+}
+
+"subscription root"
+type subscription_root {
+  "fetch data from the table: \"bots\""
+  bots(
+    "distinct select on columns"
+    distinct_on: [bots_select_column!],
+    "limit the number of rows returned"
+    limit: Int,
+    "skip the first n rows. Use only with order_by"
+    offset: Int,
+    "sort the rows by one or more columns"
+    order_by: [bots_order_by!],
+    "filter the rows returned"
+    where: bots_bool_exp
+  ): [bots!]!
+  "fetch aggregated fields from the table: \"bots\""
+  bots_aggregate(
+    "distinct select on columns"
+    distinct_on: [bots_select_column!],
+    "limit the number of rows returned"
+    limit: Int,
+    "skip the first n rows. Use only with order_by"
+    offset: Int,
+    "sort the rows by one or more columns"
+    order_by: [bots_order_by!],
+    "filter the rows returned"
+    where: bots_bool_exp
+  ): bots_aggregate!
+  "fetch data from the table: \"bots\" using primary key columns"
+  bots_by_pk(id: uuid!): bots
+  "fetch data from the table: \"interactions\""
+  interactions(
+    "distinct select on columns"
+    distinct_on: [interactions_select_column!],
+    "limit the number of rows returned"
+    limit: Int,
+    "skip the first n rows. Use only with order_by"
+    offset: Int,
+    "sort the rows by one or more columns"
+    order_by: [interactions_order_by!],
+    "filter the rows returned"
+    where: interactions_bool_exp
+  ): [interactions!]!
+  "fetch aggregated fields from the table: \"interactions\""
+  interactions_aggregate(
+    "distinct select on columns"
+    distinct_on: [interactions_select_column!],
+    "limit the number of rows returned"
+    limit: Int,
+    "skip the first n rows. Use only with order_by"
+    offset: Int,
+    "sort the rows by one or more columns"
+    order_by: [interactions_order_by!],
+    "filter the rows returned"
+    where: interactions_bool_exp
+  ): interactions_aggregate!
+  "fetch data from the table: \"interactions\" using primary key columns"
+  interactions_by_pk(id: uuid!): interactions
+  "fetch data from the table: \"users\""
+  users(
+    "distinct select on columns"
+    distinct_on: [users_select_column!],
+    "limit the number of rows returned"
+    limit: Int,
+    "skip the first n rows. Use only with order_by"
+    offset: Int,
+    "sort the rows by one or more columns"
+    order_by: [users_order_by!],
+    "filter the rows returned"
+    where: users_bool_exp
+  ): [users!]!
+  "fetch aggregated fields from the table: \"users\""
+  users_aggregate(
+    "distinct select on columns"
+    distinct_on: [users_select_column!],
+    "limit the number of rows returned"
+    limit: Int,
+    "skip the first n rows. Use only with order_by"
+    offset: Int,
+    "sort the rows by one or more columns"
+    order_by: [users_order_by!],
+    "filter the rows returned"
+    where: users_bool_exp
+  ): users_aggregate!
+  "fetch data from the table: \"users\" using primary key columns"
+  users_by_pk(id: uuid!): users
+}
+
+"columns and relationships of \"users\""
+type users {
+  "An array relationship"
+  bots(
+    "distinct select on columns"
+    distinct_on: [bots_select_column!],
+    "limit the number of rows returned"
+    limit: Int,
+    "skip the first n rows. Use only with order_by"
+    offset: Int,
+    "sort the rows by one or more columns"
+    order_by: [bots_order_by!],
+    "filter the rows returned"
+    where: bots_bool_exp
+  ): [bots!]!
+  "An aggregated array relationship"
+  bots_aggregate(
+    "distinct select on columns"
+    distinct_on: [bots_select_column!],
+    "limit the number of rows returned"
+    limit: Int,
+    "skip the first n rows. Use only with order_by"
+    offset: Int,
+    "sort the rows by one or more columns"
+    order_by: [bots_order_by!],
+    "filter the rows returned"
+    where: bots_bool_exp
+  ): bots_aggregate!
+  created_at: timestamptz!
+  id: uuid!
+  last_seen: timestamptz!
   password: String!
-  role: UserRole!
   username: String!
 }
 
-"'Interaction' input values"
-input InteractionInput {
-  description: String!
-  name: String!
-  owner: InteractionOwnerRelation
+"aggregated selection of \"users\""
+type users_aggregate {
+  aggregate: users_aggregate_fields
+  nodes: [users!]!
 }
 
-"Allow manipulating the relationship between the types 'Interaction' and 'Bot' using the field 'Interaction.owner'."
-input InteractionOwnerRelation {
-  "Connect a document of type 'Bot' with the current document using its ID."
-  connect: ID
-  "Create a document of type 'Bot' and associate it with the current document."
-  create: BotInput
-  "If true, disconnects this document from 'Bot'"
-  disconnect: Boolean
+"aggregate fields of \"users\""
+type users_aggregate_fields {
+  count(columns: [users_select_column!], distinct: Boolean): Int
+  max: users_max_fields
+  min: users_min_fields
 }
 
-input LoginUserInput {
+"aggregate max on columns"
+type users_max_fields {
+  created_at: timestamptz
+  id: uuid
+  last_seen: timestamptz
+  password: String
+  username: String
+}
+
+"aggregate min on columns"
+type users_min_fields {
+  created_at: timestamptz
+  id: uuid
+  last_seen: timestamptz
+  password: String
+  username: String
+}
+
+"response of any mutation on the table \"users\""
+type users_mutation_response {
+  "number of affected rows by the mutation"
+  affected_rows: Int!
+  "data of the affected rows by the mutation"
+  returning: [users!]!
+}
+
+"unique or primary key constraints on table \"bots\""
+enum bots_constraint {
+  "unique or primary key constraint"
+  bot_pkey
+}
+
+"select columns of table \"bots\""
+enum bots_select_column {
+  "column name"
+  created_at
+  "column name"
+  description
+  "column name"
+  id
+  "column name"
+  name
+  "column name"
+  updated_at
+  "column name"
+  user_id
+}
+
+"update columns of table \"bots\""
+enum bots_update_column {
+  "column name"
+  created_at
+  "column name"
+  description
+  "column name"
+  id
+  "column name"
+  name
+  "column name"
+  updated_at
+  "column name"
+  user_id
+}
+
+"unique or primary key constraints on table \"interactions\""
+enum interactions_constraint {
+  "unique or primary key constraint"
+  interactions_pkey
+}
+
+"select columns of table \"interactions\""
+enum interactions_select_column {
+  "column name"
+  bot_id
+  "column name"
+  description
+  "column name"
+  id
+  "column name"
+  name
+  "column name"
+  start
+  "column name"
+  user_id
+}
+
+"update columns of table \"interactions\""
+enum interactions_update_column {
+  "column name"
+  bot_id
+  "column name"
+  description
+  "column name"
+  id
+  "column name"
+  name
+  "column name"
+  start
+  "column name"
+  user_id
+}
+
+"column ordering options"
+enum order_by {
+  "in the ascending order, nulls last"
+  asc
+  "in the ascending order, nulls first"
+  asc_nulls_first
+  "in the ascending order, nulls last"
+  asc_nulls_last
+  "in the descending order, nulls first"
+  desc
+  "in the descending order, nulls first"
+  desc_nulls_first
+  "in the descending order, nulls last"
+  desc_nulls_last
+}
+
+"unique or primary key constraints on table \"users\""
+enum users_constraint {
+  "unique or primary key constraint"
+  user_pkey
+  "unique or primary key constraint"
+  user_username_key
+}
+
+"select columns of table \"users\""
+enum users_select_column {
+  "column name"
+  created_at
+  "column name"
+  id
+  "column name"
+  last_seen
+  "column name"
+  password
+  "column name"
+  username
+}
+
+"update columns of table \"users\""
+enum users_update_column {
+  "column name"
+  created_at
+  "column name"
+  id
+  "column name"
+  last_seen
+  "column name"
+  password
+  "column name"
+  username
+}
+
+"expression to compare columns of type Boolean. All fields are combined with logical 'AND'."
+input Boolean_comparison_exp {
+  _eq: Boolean
+  _gt: Boolean
+  _gte: Boolean
+  _in: [Boolean!]
+  _is_null: Boolean
+  _lt: Boolean
+  _lte: Boolean
+  _neq: Boolean
+  _nin: [Boolean!]
+}
+
+input LoginData {
   password: String!
   username: String!
 }
 
-"Allow manipulating the relationship between the types 'User' and 'Bot'."
-input UserBotsRelation {
-  "Connect one or more documents of type 'Bot' with the current document using their IDs."
-  connect: [ID]
-  "Create one or more documents of type 'Bot' and associate them with the current document."
-  create: [BotInput]
-  "Disconnect the given documents of type 'Bot' from the current document using their IDs."
-  disconnect: [ID]
+"expression to compare columns of type String. All fields are combined with logical 'AND'."
+input String_comparison_exp {
+  _eq: String
+  _gt: String
+  _gte: String
+  _ilike: String
+  _in: [String!]
+  _is_null: Boolean
+  _like: String
+  _lt: String
+  _lte: String
+  _neq: String
+  _nilike: String
+  _nin: [String!]
+  _nlike: String
+  _nsimilar: String
+  _similar: String
 }
 
-"'User' input values"
-input UserInput {
-  bots: UserBotsRelation
-  role: UserRole!
-  username: String!
+"order by aggregate values of table \"bots\""
+input bots_aggregate_order_by {
+  count: order_by
+  max: bots_max_order_by
+  min: bots_min_order_by
+}
+
+"input type for inserting array relation for remote table \"bots\""
+input bots_arr_rel_insert_input {
+  data: [bots_insert_input!]!
+  on_conflict: bots_on_conflict
+}
+
+"Boolean expression to filter rows from the table \"bots\". All fields are combined with a logical 'AND'."
+input bots_bool_exp {
+  _and: [bots_bool_exp]
+  _not: bots_bool_exp
+  _or: [bots_bool_exp]
+  created_at: timestamptz_comparison_exp
+  description: String_comparison_exp
+  id: uuid_comparison_exp
+  interactions: interactions_bool_exp
+  name: String_comparison_exp
+  updated_at: timestamptz_comparison_exp
+  user: users_bool_exp
+  user_id: uuid_comparison_exp
+}
+
+"input type for inserting data into table \"bots\""
+input bots_insert_input {
+  created_at: timestamptz
+  description: String
+  id: uuid
+  interactions: interactions_arr_rel_insert_input
+  name: String
+  updated_at: timestamptz
+  user: users_obj_rel_insert_input
+  user_id: uuid
+}
+
+"order by max() on columns of table \"bots\""
+input bots_max_order_by {
+  created_at: order_by
+  description: order_by
+  id: order_by
+  name: order_by
+  updated_at: order_by
+  user_id: order_by
+}
+
+"order by min() on columns of table \"bots\""
+input bots_min_order_by {
+  created_at: order_by
+  description: order_by
+  id: order_by
+  name: order_by
+  updated_at: order_by
+  user_id: order_by
+}
+
+"input type for inserting object relation for remote table \"bots\""
+input bots_obj_rel_insert_input {
+  data: bots_insert_input!
+  on_conflict: bots_on_conflict
+}
+
+"on conflict condition type for table \"bots\""
+input bots_on_conflict {
+  constraint: bots_constraint!
+  update_columns: [bots_update_column!]!
+  where: bots_bool_exp
+}
+
+"ordering options when selecting data from \"bots\""
+input bots_order_by {
+  created_at: order_by
+  description: order_by
+  id: order_by
+  interactions_aggregate: interactions_aggregate_order_by
+  name: order_by
+  updated_at: order_by
+  user: users_order_by
+  user_id: order_by
+}
+
+"primary key columns input for table: \"bots\""
+input bots_pk_columns_input {
+  id: uuid!
+}
+
+"input type for updating data in table \"bots\""
+input bots_set_input {
+  created_at: timestamptz
+  description: String
+  id: uuid
+  name: String
+  updated_at: timestamptz
+  user_id: uuid
+}
+
+"order by aggregate values of table \"interactions\""
+input interactions_aggregate_order_by {
+  count: order_by
+  max: interactions_max_order_by
+  min: interactions_min_order_by
+}
+
+"input type for inserting array relation for remote table \"interactions\""
+input interactions_arr_rel_insert_input {
+  data: [interactions_insert_input!]!
+  on_conflict: interactions_on_conflict
+}
+
+"Boolean expression to filter rows from the table \"interactions\". All fields are combined with a logical 'AND'."
+input interactions_bool_exp {
+  _and: [interactions_bool_exp]
+  _not: interactions_bool_exp
+  _or: [interactions_bool_exp]
+  bot: bots_bool_exp
+  bot_id: uuid_comparison_exp
+  description: String_comparison_exp
+  id: uuid_comparison_exp
+  name: String_comparison_exp
+  start: Boolean_comparison_exp
+  user: users_bool_exp
+  user_id: uuid_comparison_exp
+}
+
+"input type for inserting data into table \"interactions\""
+input interactions_insert_input {
+  bot: bots_obj_rel_insert_input
+  bot_id: uuid
+  description: String
+  id: uuid
+  name: String
+  start: Boolean
+  user: users_obj_rel_insert_input
+  user_id: uuid
+}
+
+"order by max() on columns of table \"interactions\""
+input interactions_max_order_by {
+  bot_id: order_by
+  description: order_by
+  id: order_by
+  name: order_by
+  user_id: order_by
+}
+
+"order by min() on columns of table \"interactions\""
+input interactions_min_order_by {
+  bot_id: order_by
+  description: order_by
+  id: order_by
+  name: order_by
+  user_id: order_by
+}
+
+"input type for inserting object relation for remote table \"interactions\""
+input interactions_obj_rel_insert_input {
+  data: interactions_insert_input!
+  on_conflict: interactions_on_conflict
+}
+
+"on conflict condition type for table \"interactions\""
+input interactions_on_conflict {
+  constraint: interactions_constraint!
+  update_columns: [interactions_update_column!]!
+  where: interactions_bool_exp
+}
+
+"ordering options when selecting data from \"interactions\""
+input interactions_order_by {
+  bot: bots_order_by
+  bot_id: order_by
+  description: order_by
+  id: order_by
+  name: order_by
+  start: order_by
+  user: users_order_by
+  user_id: order_by
+}
+
+"primary key columns input for table: \"interactions\""
+input interactions_pk_columns_input {
+  id: uuid!
+}
+
+"input type for updating data in table \"interactions\""
+input interactions_set_input {
+  bot_id: uuid
+  description: String
+  id: uuid
+  name: String
+  start: Boolean
+  user_id: uuid
+}
+
+"expression to compare columns of type json. All fields are combined with logical 'AND'."
+input json_comparison_exp {
+  _eq: json
+  _gt: json
+  _gte: json
+  _in: [json!]
+  _is_null: Boolean
+  _lt: json
+  _lte: json
+  _neq: json
+  _nin: [json!]
+}
+
+"expression to compare columns of type timestamptz. All fields are combined with logical 'AND'."
+input timestamptz_comparison_exp {
+  _eq: timestamptz
+  _gt: timestamptz
+  _gte: timestamptz
+  _in: [timestamptz!]
+  _is_null: Boolean
+  _lt: timestamptz
+  _lte: timestamptz
+  _neq: timestamptz
+  _nin: [timestamptz!]
+}
+
+"order by aggregate values of table \"users\""
+input users_aggregate_order_by {
+  count: order_by
+  max: users_max_order_by
+  min: users_min_order_by
+}
+
+"input type for inserting array relation for remote table \"users\""
+input users_arr_rel_insert_input {
+  data: [users_insert_input!]!
+  on_conflict: users_on_conflict
+}
+
+"Boolean expression to filter rows from the table \"users\". All fields are combined with a logical 'AND'."
+input users_bool_exp {
+  _and: [users_bool_exp]
+  _not: users_bool_exp
+  _or: [users_bool_exp]
+  bots: bots_bool_exp
+  created_at: timestamptz_comparison_exp
+  id: uuid_comparison_exp
+  last_seen: timestamptz_comparison_exp
+  password: String_comparison_exp
+  username: String_comparison_exp
+}
+
+"input type for inserting data into table \"users\""
+input users_insert_input {
+  bots: bots_arr_rel_insert_input
+  created_at: timestamptz
+  id: uuid
+  last_seen: timestamptz
+  password: String
+  username: String
+}
+
+"order by max() on columns of table \"users\""
+input users_max_order_by {
+  created_at: order_by
+  id: order_by
+  last_seen: order_by
+  password: order_by
+  username: order_by
+}
+
+"order by min() on columns of table \"users\""
+input users_min_order_by {
+  created_at: order_by
+  id: order_by
+  last_seen: order_by
+  password: order_by
+  username: order_by
+}
+
+"input type for inserting object relation for remote table \"users\""
+input users_obj_rel_insert_input {
+  data: users_insert_input!
+  on_conflict: users_on_conflict
+}
+
+"on conflict condition type for table \"users\""
+input users_on_conflict {
+  constraint: users_constraint!
+  update_columns: [users_update_column!]!
+  where: users_bool_exp
+}
+
+"ordering options when selecting data from \"users\""
+input users_order_by {
+  bots_aggregate: bots_aggregate_order_by
+  created_at: order_by
+  id: order_by
+  last_seen: order_by
+  password: order_by
+  username: order_by
+}
+
+"primary key columns input for table: \"users\""
+input users_pk_columns_input {
+  id: uuid!
+}
+
+"input type for updating data in table \"users\""
+input users_set_input {
+  created_at: timestamptz
+  id: uuid
+  last_seen: timestamptz
+  password: String
+  username: String
+}
+
+"expression to compare columns of type uuid. All fields are combined with logical 'AND'."
+input uuid_comparison_exp {
+  _eq: uuid
+  _gt: uuid
+  _gte: uuid
+  _in: [uuid!]
+  _is_null: Boolean
+  _lt: uuid
+  _lte: uuid
+  _neq: uuid
+  _nin: [uuid!]
 }
 
 
-scalar Date
+scalar json
 
-scalar Time
+scalar timestamptz
 
-"The `Long` scalar type represents non-fractional signed whole numeric values. Long can represent values between -(2^63) and 2^63 - 1."
-scalar Long
+scalar uuid
