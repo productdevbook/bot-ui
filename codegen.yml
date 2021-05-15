@@ -4,9 +4,9 @@ hooks:
     - prettier --write
 
 schema:
-  - http://localhost:8080/v1/graphql:
+  - ${GRAPHQL_ENDPOINT}:
       headers:
-        x-hasura-admin-secret: "braksadminsecretkey"
+        x-hasura-admin-secret: ${HASURA_ADMIN_KEY}
 generates:
   # types/graphql.d.ts:
   #  plugins:
