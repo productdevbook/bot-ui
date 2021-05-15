@@ -40,5 +40,5 @@
     "dist",
     "./types/types.ts"
   ],
-  "files": ["graphql.d.ts"]
+  "files": ["graphql.d.ts", "plugins/session-manager/index.ts"]
 }
