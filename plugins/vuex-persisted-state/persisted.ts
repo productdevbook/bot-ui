@@ -18,7 +18,7 @@ function storage(req: Record<string, any>, res: any) {
         }
       },
       setItem: (key: string, state: string) => {
-        (client || process.static)
+        client || process.static
           ? Cookie.set(key, state, { expires: 7, secure: false, path: '/' })
           : res.setHeader('Set-Cookie', cookie.serialize(key, state, { secure: false, path: '/' }));
       },
@@ -28,12 +28,15 @@ function storage(req: Record<string, any>, res: any) {
     return localStorage;
   }
 }
+
 const persistedStatePlugin: Plugin = ({ store, req, res }) => {
-  createPersistedState({
-    key: 'storage',
-    paths: ['user'],
-    storage: storage(req, res)
-  })(store);
+  if (!process.static) {
+    createPersistedState({
+      key: 'storage',
+      paths: ['user'],
+      storage: storage(req, res)
+    })(store);
+  }
 };
 
 export default persistedStatePlugin;
