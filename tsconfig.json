@@ -30,7 +30,8 @@
       "vue-cli-plugin-apollo/types",
       "@nuxt/types",
       "@nuxtjs/apollo/types",
-      "@nuxtjs/toast"
+      "@nuxtjs/toast",
+      "@vercel/node"
     ]
   },
   "exclude": [
