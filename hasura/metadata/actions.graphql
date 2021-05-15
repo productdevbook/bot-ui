@@ -5,6 +5,11 @@ type Mutation {
 }
 
 
+type Mutation {
+  refreshToken : RefreshedToken
+}
+
+
 
 
 input LoginData {
@@ -13,6 +18,10 @@ input LoginData {
 }
 
 type Token {
+  accessToken : String!
+}
+
+type RefreshedToken {
   accessToken : String!
 }
 

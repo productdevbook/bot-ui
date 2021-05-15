@@ -73,30 +73,19 @@
       check:
         user_id:
           _eq: X-Hasura-User-Id
-      columns:
-      - description
-      - name
-      - start
+      columns: []
       backend_only: false
   select_permissions:
   - role: user
     permission:
-      columns:
-      - bot_id
-      - description
-      - id
-      - name
-      - start
+      columns: []
       filter:
         user_id:
           _eq: X-Hasura-User-Id
   update_permissions:
   - role: user
     permission:
-      columns:
-      - description
-      - name
-      - start
+      columns: []
       filter:
         user_id:
           _eq: X-Hasura-User-Id
@@ -120,3 +109,10 @@
         table:
           schema: public
           name: bots
+  computed_fields:
+  - name: pwd_match
+    definition:
+      function:
+        schema: public
+        name: password_matches
+    comment: ""
