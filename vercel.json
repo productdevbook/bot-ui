@@ -4,7 +4,7 @@
       "NODEJS_AWS_HANDLER_NAME": "default"
     }
   },
-  "routes": [
-    { "src": "/api/.*", "dest": "@ACTION_BASE_URL/api/main"}
+  "rewrites": [
+    { "source": "/lambda/:match*", "destination": "http://localhost/api/main"}
   ]
 }
