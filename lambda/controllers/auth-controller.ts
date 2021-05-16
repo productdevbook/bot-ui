@@ -51,7 +51,7 @@ export class AuthController extends Controller {
     } = parse(payload);
     const options = {
       query: gql`
-        query get_user($username: String!, $password: String!) {
+        query ($username: String!, $password: String!) {
           users(where: { username: { _eq: $username } }) {
             id
             username
@@ -156,7 +156,7 @@ export class AuthController extends Controller {
       ...this.options
     };
     try {
-      await makePromise(execute(link, options));
+      return await makePromise(execute(link, options));
     } catch (e) {
       console.log('Refreshing last_seen value failed', e);
     }
