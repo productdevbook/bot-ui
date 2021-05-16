@@ -76,6 +76,7 @@ dist
 
 # Serverless directories
 .serverless
+.webpack
 
 # IDE / Editor
 .idea
