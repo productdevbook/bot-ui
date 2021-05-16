@@ -4,7 +4,6 @@ const slsw = require('serverless-webpack');
 const WebpackBar = require('webpackbar');
 const TSConfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
-const TerserPlugin = require('terser-webpack-plugin');
 
 module.exports = {
   entry: slsw.lib.entries,
@@ -14,14 +13,6 @@ module.exports = {
   devtool: 'nosources-source-map',
   optimization: {
     minimize: !slsw.lib.webpack.isLocal,
-    minimizer: [
-      new TerserPlugin({
-        terserOptions: {
-          keep_classnames: true,
-          keep_fnames: true
-        }
-      })
-    ],
     usedExports: true
   },
   node: {

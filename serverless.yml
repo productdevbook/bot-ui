@@ -4,16 +4,16 @@ useDotenv: true
 
 plugins:
   - serverless-webpack
-  - serverless-offline
+  # - serverless-offline
   # Workaround for serverless-offline hot-reload
   # See https://github.com/dherault/serverless-offline/issues/931
   # and https://github.com/dherault/serverless-offline/pull/978
-  - ./utils/sls-invalidate
+  # - ./utils/sls-invalidate
 
 provider:
   name: aws
-  runtime: nodejs14.x
-  stage: ${opt:stage, 'dev'}
+  runtime: nodejs12.x
+  stage: ${opt:stage, 'staging'}
   region: ${opt:region, 'eu-central-1'}
   memorySize: 256
   tracing:
@@ -24,7 +24,7 @@ provider:
     cors:
       allowedOrigins: '*'
       allowedHeaders:
-        - Content-Type: application/json
+        - "Content-Type: application/json"
         - X-Amz-Date
         - Authorization
         - X-Amz-Security-Token
@@ -53,7 +53,7 @@ custom:
     host: ${env:HOST}
 
 functions:
-  auth:
+  main:
     handler: api/main.default
     events:
       - httpApi:
