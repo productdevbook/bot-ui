@@ -1,11 +1,13 @@
 import { Context } from '@nuxt/types';
 
-export default ({ route, redirect, app }: Context) => {
-  if (process.env.TARGET_STAGE !== 'dev') {
+// Check if user has a JWT token present, if not redirect back to login
+export default ({ route, redirect, app: { $apolloHelpers }, $config }: Context) => {
+  if ($config.stage === 'dev') {
     const requiresAuth = !route.name?.includes('login');
-    const hasToken = !!app.$apolloHelpers.getToken();
+    const hasToken = !!$apolloHelpers.getToken();
     if (requiresAuth) {
       if (!hasToken) {
+        $apolloHelpers.onLogout();
         redirect('/login');
       }
     } else if (!requiresAuth) {

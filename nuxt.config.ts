@@ -91,7 +91,8 @@ const config = {
 
   publicRuntimeConfig: {
     graphQlEndpoint: process.env.GRAPHQL_ENDPOINT,
-    refreshInterval: process.env.REFRESH_INTERVAL || 600
+    refreshInterval: process.env.REFRESH_INTERVAL || 600,
+    stage: process.env.TARGET_STAGE || 'dev'
   },
 
   serverMiddleware: NuxtServerMiddlewareConfig,
