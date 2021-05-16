@@ -39,6 +39,7 @@
     "@nuxt/types": "^2.15.6",
     "@nuxtjs/eslint-config-typescript": "^6.0.0",
     "@nuxtjs/eslint-module": "^3.0.2",
+    "@types/aws-lambda": "^8.10.76",
     "@types/graphql": "^14.5.0",
     "@types/js-cookie": "^2.2.6",
     "@vercel/node": "^1.10.0",

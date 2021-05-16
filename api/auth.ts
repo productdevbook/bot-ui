@@ -1,11 +1,19 @@
-import { VercelRequest, VercelResponse } from '@vercel/node';
+import { Handler } from 'aws-lambda';
 import serverlessAuth from '../serverless-functions/auth';
 
-export default async (req: VercelRequest, res: VercelResponse) => {
-  const accessToken = await serverlessAuth(req.body);
+const handler: Handler = async (event) => {
+  const accessToken = await serverlessAuth(event.body);
   if (accessToken) {
-    return res.status(200).json({ accessToken });
+    return {
+      statusCode: 200,
+      body: { accessToken }
+    };
   }
   const response = { message: 'Authentication failed.' };
-  return res.status(401).send(response);
+  return {
+    statusCode: 401,
+    body: response
+  };
 };
+
+export default handler;

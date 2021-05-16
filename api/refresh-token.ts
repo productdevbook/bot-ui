@@ -1,12 +1,20 @@
-import { VercelRequest, VercelResponse } from '@vercel/node';
+import { Handler } from 'aws-lambda';
 import serverlessRefreshToken from '../serverless-functions/refresh-token';
 
 // Refresh JWT
-export default ({ headers }: VercelRequest, res: VercelResponse) => {
-  const accessToken = serverlessRefreshToken(headers);
+const handler: Handler = async ({ headers }) => {
+  const accessToken = await serverlessRefreshToken(headers);
   if (accessToken) {
-    return res.status(200).json({ accessToken });
+    return {
+      statusCode: 200,
+      body: { accessToken }
+    };
   }
   const response = { message: 'Could not refresh JWT.' };
-  return res.status(404).send(response);
+  return {
+    statusCode: 404,
+    body: response
+  };
 };
+
+export default handler;

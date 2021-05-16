@@ -6,7 +6,7 @@ import link from '../utils/httplink';
 export default async (body: any) => {
   const {
     input: { data }
-  } = body;
+  } = JSON.parse(body);
   const options = {
     query: gql`
       query get_user($username: String!, $password: String!) {

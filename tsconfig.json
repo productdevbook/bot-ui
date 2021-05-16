@@ -26,6 +26,7 @@
     },
     "types": [
       "@types/js-cookie",
+      "@types/aws-lambda",
       "vue-apollo/types",
       "vue-cli-plugin-apollo/types",
       "@nuxt/types",
