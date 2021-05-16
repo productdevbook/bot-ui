@@ -50,10 +50,10 @@
         </span>
       </transition>
       <button :disabled="disabled" :class="disabled ? 'bg-gray-700 btn-disabled' : 'bg-green-500 btn'" @click.prevent="submit">
-        <transition-group name="fade" mode="out-in">
+        <transition name="fade" mode="out-in">
           <span v-show="loading" key="loading"> <i class="fas fa-spinner fa-spin"></i></span>
-          <span v-show="!loading" key="login-text">Login</span>
-        </transition-group>
+        </transition>
+        <span v-show="!loading">Login</span>
       </button>
     </div>
   </form>

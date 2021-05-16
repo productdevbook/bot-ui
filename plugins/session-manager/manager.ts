@@ -49,7 +49,6 @@ export class SessionManager {
       const response = await makePromise(
         execute(
           createHttpLink({
-            // You should use an absolute URL here
             uri: this.endpoint,
             fetch: fetch as any
           }),
@@ -57,7 +56,6 @@ export class SessionManager {
         )
       );
       await this.$apolloHelpers.onLogin(response.data?.login.accessToken);
-      this.startSession();
       return true;
     } catch (e) {
       console.log(e);
