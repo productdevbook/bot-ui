@@ -59,7 +59,7 @@ export class AuthController extends Controller {
         },
         context: {
           headers: {
-            'x-hasura-admin-secret': process.env.HASURA_ADMIN_KEY || ''
+            'x-hasura-admin-secret': process.env.HASURA_ADMIN_SECRET || ''
           }
         }
       };
@@ -92,7 +92,7 @@ export class AuthController extends Controller {
       variables: {},
       context: {
         headers: {
-          'x-hasura-admin-secret': process.env.HASURA_ADMIN_KEY || ''
+          'x-hasura-admin-secret': process.env.HASURA_ADMIN_SECRET || ''
         }
       }
     };

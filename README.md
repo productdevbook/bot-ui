@@ -31,7 +31,7 @@ $ docker-compose up -d
 | RS256_PUBLIC_KEY    | string        |               | (__required__) Public Key for JWT verification
 | RS256_SECRET_KEY    | string        |               | (__required__) Secret Key for JWT signing
 | GRAPHQL_ENDPOINT    | string        |               | (__required__) GraphQL Endpoint (i.e. Hasura Endpoint) http://localhost:8080
-| HASURA_ADMIN_KEY    | string        |               | (__required__) Deployment stage
+| HASURA_ADMIN_SECRET    | string        |               | (__required__) Deployment stage
 | TARGET_STAGE        | string        | "staging"     | (_optional_) Deployment stage
 | SSR                 | boolean       | false         | (_optional_) Enable Server-Side Rendering
 | REFRESH_INTERVAL    | number        | 300           | (_optional_) Session refresh interval

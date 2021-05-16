@@ -6,7 +6,7 @@ hooks:
 schema:
   - ${GRAPHQL_ENDPOINT}:
       headers:
-        x-hasura-admin-secret: ${HASURA_ADMIN_KEY}
+        x-hasura-admin-secret: ${HASURA_ADMIN_SECRET}
 generates:
   # types/graphql.d.ts:
   #  plugins:

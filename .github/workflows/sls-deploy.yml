@@ -45,7 +45,7 @@ jobs:
       - name: Deploy lambda ƛ
         run: cd lambda && yarn deploy
         env:
-          HASURA_ADMIN_KEY: ${{ secrets.HASURA_ADMIN_KEY }}
+          HASURA_ADMIN_SECRET: ${{ secrets.HASURA_ADMIN_SECRET }}
           GRAPHQL_ENDPOINT: ${{ secrets.GRAPHQL_ENDPOINT }}
           ENCRYPTION_KEY: ${{ secrets.ENCRYPTION_KEY }}
           ENCRYPTION_IV: ${{ secrets.ENCRYPTION_IV }}
