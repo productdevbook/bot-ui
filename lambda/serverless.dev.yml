@@ -33,13 +33,6 @@ provider:
         - Access-Control-Allow-Origin
         - Access-Control-Allow-Credentials
         - Access-Control-Allow-Methods
-  environment:
-    SLS_STAGE: ${self:provider.stage}
-    SLS_SERVICE: ${self:service}
-    IS_OFFLINE: ${env:OFFLINE}
-    GRAPHQL_ENDPOINT: ${env:GRAPHQL_ENDPOINTT}
-    ENCRYPTION_KEY: ${env:ENCRYPTION_KEY}
-    ENCRYPTION_IV: ${env:ENCRYPTION_IV}
 
 custom:
   webpack:
