@@ -3,8 +3,5 @@
     "env": {
       "NODEJS_AWS_HANDLER_NAME": "default"
     }
-  },
-  "rewrites": [
-    { "source": "/lambda/:match*", "destination": "http://localhost/api/main"}
-  ]
+  }
 }

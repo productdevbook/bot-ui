@@ -4,11 +4,11 @@ useDotenv: true
 
 plugins:
   - serverless-webpack
-  - serverless-offline
+  # - serverless-offline
   # Workaround for serverless-offline hot-reload
   # See https://github.com/dherault/serverless-offline/issues/931
   # and https://github.com/dherault/serverless-offline/pull/978
-  - ./utils/sls-invalidate
+  # - ./utils/sls-invalidate
 
 provider:
   name: aws
@@ -54,7 +54,7 @@ custom:
 
 functions:
   main:
-    handler: api/main.default
+    handler: main.default
     events:
       - httpApi:
           method: '*'
