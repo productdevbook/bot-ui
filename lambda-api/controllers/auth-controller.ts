@@ -15,7 +15,7 @@ import { gql } from 'graphql-tag';
 import { execute, makePromise } from 'apollo-link';
 import { AccessDeniedError } from '../error';
 import link from '../../utils/httplink';
-import { Jwt } from '~/utils/jwt';
+import { Jwt } from '../../utils/jwt';
 
 @apiController('/auth')
 @controllerProduces('application/json')
