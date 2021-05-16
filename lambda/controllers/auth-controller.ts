@@ -76,8 +76,9 @@ export class AuthController extends Controller {
         }
       }
     } catch (e) {
-      throw new AccessDeniedError(e);
+      console.log(`Authentication error: ${e.message}`);
     }
+    throw new AccessDeniedError('Authentication failed.');
   }
 
   @POST('/refresh-token')

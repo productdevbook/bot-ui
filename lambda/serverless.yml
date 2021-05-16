@@ -2,6 +2,7 @@ service: bot-api
 
 plugins:
   - serverless-webpack
+  - serverless-dotenv-plugin
 
 provider:
   name: aws
@@ -40,6 +41,8 @@ custom:
     includeModules:
       forceExclude:
         - aws-sdk
+  dotenv:
+    path: ../.env
 
 functions:
   main:
