@@ -59,4 +59,3 @@ functions:
       - httpApi:
           method: '*'
           path: /{proxy+}
-          cors: true

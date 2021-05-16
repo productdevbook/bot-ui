@@ -22,7 +22,8 @@
     "baseUrl": "./",
     "declaration": false,
     "types": [
-      "@types/jest"
+      "@types/jest",
+      "@types/node"
     ],
     "typeRoots": [
       "node_modules/@types"

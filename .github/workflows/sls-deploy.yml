@@ -37,7 +37,7 @@ jobs:
             ${{ runner.os }}-yarn-
 
       - name: Install dependencies 👨🏻‍💻
-        run: cd lambda && yarn
+        run: yarn && cd lambda && yarn
 
       - name: Deploy lambda ƛ
         run: cd lambda && yarn deploy
