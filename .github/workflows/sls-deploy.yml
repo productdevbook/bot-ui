@@ -36,8 +36,8 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-
 
-      - name: Install dependencies 👨🏻‍💻
-        run: yarn
+      - name: Switch to lambda directory and install dependencies 👨🏻‍💻
+        run: cd lambda && yarn
 
       - name: Deploy lambda ƛ
         run: yarn deploy
