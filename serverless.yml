@@ -20,7 +20,7 @@ provider:
     apiGateway: true
     lambda: true
   httpApi:
-    payload: '2.0'
+    payload: '1.0'
     cors:
       allowedOrigins: '*'
       allowedHeaders:
@@ -54,16 +54,9 @@ custom:
 
 functions:
   auth:
-    handler: api/auth.default
+    handler: api/main.default
     events:
       - httpApi:
-          method: 'POST'
-          path: /auth
-          cors: true
-  refresh-token:
-    handler: api/refresh-token.default
-    events:
-      - httpApi:
-          method: 'GET'
-          path: /refresh-token
+          method: '*'
+          path: /{proxy+}
           cors: true

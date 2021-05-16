@@ -1,7 +1,9 @@
 import { createDecipheriv, Decipher } from 'crypto';
 import { sign, verify, Algorithm, VerifyOptions } from 'jsonwebtoken';
+import { injectable } from 'inversify';
 import AuthConfig from '../config/auth';
 
+@injectable()
 export class Jwt {
   secret = '';
   public = '';
@@ -26,10 +28,12 @@ export class Jwt {
 
   private static _decipherKey(cipher: Decipher, key: string) {
     let decrypted = cipher.update(key, 'base64', 'utf8');
-
     decrypted += cipher.final('utf8');
-
     return decrypted;
+  }
+
+  private _expiry() {
+    return Math.floor(Date.now() + this.options.expiresIn);
   }
 
   sign(user: Record<string, string>) {
@@ -44,7 +48,7 @@ export class Jwt {
       }
     };
 
-    return sign(claims, this.secret, this.options);
+    return { accessToken: sign(claims, this.secret, this.options), expires: this._expiry() };
   }
 
   verify = verify;
@@ -57,7 +61,7 @@ export class Jwt {
     delete payload.jti;
     delete payload.aud;
     // The first signing converted all needed options into claims, they are already in the payload
-    return sign(payload, this.secret);
+    return { accessToken: sign(payload, this.secret), expires: this._expiry() };
   }
 }
 

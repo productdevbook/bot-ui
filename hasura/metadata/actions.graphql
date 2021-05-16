@@ -6,7 +6,7 @@ type Mutation {
 
 
 type Mutation {
-  refreshToken : RefreshedToken
+  refreshToken : Token
 }
 
 
@@ -19,6 +19,7 @@ input LoginData {
 
 type Token {
   accessToken : String!
+  expires : Int!
 }
 
 type RefreshedToken {

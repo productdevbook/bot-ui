@@ -2,14 +2,14 @@ actions:
 - name: login
   definition:
     kind: synchronous
-    handler: '{{ACTION_BASE_URL}}/auth'
+    handler: '{{ACTION_BASE_URL}}/auth/login'
     forward_client_headers: true
   permissions:
   - role: guest
 - name: refreshToken
   definition:
     kind: synchronous
-    handler: '{{ACTION_BASE_URL}}/refresh-token'
+    handler: '{{ACTION_BASE_URL}}/auth/refresh-token'
     forward_client_headers: true
   permissions:
   - role: user

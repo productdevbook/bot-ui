@@ -11,9 +11,10 @@
     "esModuleInterop": true,
     "allowJs": true,
     "sourceMap": true,
-    "strict": true,
+    "strict": false,
     "noEmit": true,
     "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
     "skipLibCheck": true,
     "baseUrl": ".",
     "paths": {
@@ -41,5 +42,8 @@
     "dist",
     "./types/types.ts"
   ],
-  "files": ["graphql.d.ts", "plugins/session-manager/index.ts"]
+  "files": [
+    "graphql.d.ts",
+    "plugins/session-manager/index.ts"
+  ]
 }
