@@ -3,5 +3,8 @@
     "env": {
       "NODEJS_AWS_HANDLER_NAME": "default"
     }
-  }
+  },
+  "routes": [
+    { "src": "/api/.*", "dest": "@ACTION_BASE_URL/api/main"}
+  ]
 }
