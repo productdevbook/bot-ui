@@ -98,7 +98,7 @@ export class AuthController extends Controller {
     };
     try {
       options.query = gql`
-        query get_user($id: uuid!) {
+        query ($id: uuid!) {
           users_by_pk(id: $id) {
             last_seen
           }
@@ -111,16 +111,27 @@ export class AuthController extends Controller {
 
       if (result.data?.users_by_pk) {
         const user = result.data.users_by_pk;
-        console.log(user);
         // If last JWT refresh was an hour ago we will have to decline refresh and log the user out
         const expirationTimeframe = 60 * 60 * 1000;
-        if (Date.now() - user.last_seen <= expirationTimeframe) {
+        if (Date.now() - new Date(user.last_seen).getMilliseconds() <= expirationTimeframe) {
           const { accessToken, expires } = this.jwt.refresh(token[1], {
             verify: {
               audience: this.jwt.options.audience,
               issuer: this.jwt.options.issuer
             }
           });
+          options.query = gql`
+            mutation ($id: uuid!, $timestamp: timestamptz!) {
+              update_users_by_pk(_set: { last_seen: $timestamp }, pk_columns: { id: $id }) {
+                id
+              }
+            }
+          `;
+          options.variables = {
+            id,
+            timestamp: new Date().toISOString()
+          };
+          await makePromise(execute(link, options));
           return this.response.status(200).send({ accessToken, expires });
         }
       }
