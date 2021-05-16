@@ -37,10 +37,17 @@ jobs:
             ${{ runner.os }}-yarn-
 
       - name: Install dependencies 👨🏻‍💻
-        run: yarn && cd lambda && yarn
+        run: yarn
+
+      - name: Install lambda dependencies 👨🏻‍💻
+        run: cd lambda && yarn
 
       - name: Deploy lambda ƛ
         run: cd lambda && yarn deploy
         env:
+          HASURA_ADMIN_KEY: ${{ secrets.HASURA_ADMIN_KEY }}
+          GRAPHQL_ENDPOINT: ${{ secrets.GRAPHQL_ENDPOINT }}
+          ENCRYPTION_KEY: ${{ secrets.ENCRYPTION_KEY }}
+          ENCRYPTION_IV: ${{ secrets.ENCRYPTION_IV }}
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}

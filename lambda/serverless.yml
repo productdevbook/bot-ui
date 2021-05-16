@@ -1,14 +1,7 @@
 service: bot-api
 
-useDotenv: true
-
 plugins:
   - serverless-webpack
-  # - serverless-offline
-  # Workaround for serverless-offline hot-reload
-  # See https://github.com/dherault/serverless-offline/issues/931
-  # and https://github.com/dherault/serverless-offline/pull/978
-  # - ./utils/sls-invalidate
 
 provider:
   name: aws
@@ -35,8 +28,10 @@ provider:
   environment:
     SLS_STAGE: ${self:provider.stage}
     SLS_SERVICE: ${self:service}
-    IS_OFFLINE: ${env:OFFLINE}
-    AWS_ENDPOINT: ${env:AWS_ENDPOINT}
+    GRAPHQL_ENDPOINT: ${env:GRAPHQL_ENDPOINT}
+    ENCRYPTION_KEY: ${env:ENCRYPTION_KEY}
+    ENCRYPTION_IV: ${env:ENCRYPTION_IV}
+    HASURA_ADMIN_KEY: ${env:HASURA_ADMIN_KEY}
 
 custom:
   webpack:
@@ -45,12 +40,6 @@ custom:
     includeModules:
       forceExclude:
         - aws-sdk
-  serverless-offline:
-    corsAllowHeaders: 'accept,content-type,authorization,Access-Control-Allow-Origin,Access-Control-Allow-Methods'
-    corsAllowOrigin: '*'
-    useChildProcesses: true
-    # set host to 0.0.0.0 for docker container
-    host: ${env:HOST}
 
 functions:
   main:

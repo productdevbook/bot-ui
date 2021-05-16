@@ -1,4 +1,4 @@
-service: bot-api
+service: bot-api-dev
 
 useDotenv: true
 
@@ -37,7 +37,9 @@ provider:
     SLS_STAGE: ${self:provider.stage}
     SLS_SERVICE: ${self:service}
     IS_OFFLINE: ${env:OFFLINE}
-    AWS_ENDPOINT: ${env:AWS_ENDPOINT}
+    GRAPHQL_ENDPOINT: ${env:GRAPHQL_ENDPOINTT}
+    ENCRYPTION_KEY: ${env:ENCRYPTION_KEY}
+    ENCRYPTION_IV: ${env:ENCRYPTION_IV}
 
 custom:
   webpack:

@@ -13,9 +13,9 @@ import { injectable, inject } from 'inversify';
 import parse from 'destr';
 import { gql } from 'graphql-tag';
 import { execute, makePromise } from 'apollo-link';
-import { AccessDeniedError } from '../error';
-import link from '../../utils/httplink';
-import { Jwt } from '../../utils/jwt';
+import { AccessDeniedError } from '@/error';
+import link from '~/utils/httplink';
+import { Jwt } from '~/utils/jwt';
 
 @apiController('/auth')
 @controllerProduces('application/json')
@@ -34,7 +34,7 @@ export class AuthController extends Controller {
     class: () => ({ accessToken: 'JWT Token', expires: 600 }),
     description: 'JWT Token for successful login.'
   })
-  @apiResponse(401, {
+  @apiResponse(403, {
     class: AccessDeniedError,
     description: 'Authentication failed.'
   })
@@ -76,9 +76,8 @@ export class AuthController extends Controller {
         }
       }
     } catch (e) {
-      console.log(`Authentication error: ${e.message}`);
+      throw new AccessDeniedError(e);
     }
-    throw new AccessDeniedError('Authentication failed.');
   }
 
   @POST('/refresh-token')
