@@ -23,6 +23,13 @@ import { Jwt } from '~/utils/jwt';
 @injectable()
 export class AuthController extends Controller {
   @inject(Jwt) jwt: Jwt;
+  options = {
+    context: {
+      headers: {
+        'x-hasura-admin-secret': process.env.HASURA_ADMIN_SECRET || ''
+      }
+    }
+  };
 
   @POST('/login')
   @apiOperation({ name: 'login user', description: 'Checks user credentials and returns a JWT token.' })
@@ -39,31 +46,27 @@ export class AuthController extends Controller {
     description: 'Authentication failed.'
   })
   async login(@body payload: any) {
-    try {
-      const {
-        input: { data }
-      } = parse(payload);
-      const options = {
-        query: gql`
-          query get_user($username: String!, $password: String!) {
-            users(where: { username: { _eq: $username } }) {
-              id
-              username
-              pwd_match(args: { pwd: $password })
-            }
-          }
-        `,
-        variables: {
-          username: data.username,
-          password: data.password
-        },
-        context: {
-          headers: {
-            'x-hasura-admin-secret': process.env.HASURA_ADMIN_SECRET || ''
+    const {
+      input: { data }
+    } = parse(payload);
+    const options = {
+      query: gql`
+        query get_user($username: String!, $password: String!) {
+          users(where: { username: { _eq: $username } }) {
+            id
+            username
+            pwd_match(args: { pwd: $password })
           }
         }
-      };
+      `,
+      variables: {
+        username: data.username,
+        password: data.password
+      },
+      ...this.options
+    };
 
+    try {
       const result = await makePromise(execute(link, options));
       if (result.data?.users.length) {
         const user = result.data.users[0];
@@ -71,6 +74,7 @@ export class AuthController extends Controller {
           const { accessToken, expires } = this.jwt.sign(user);
           // For safety we'll try to verify the JWT after signing
           this.jwt.verify(accessToken, this.jwt.public);
+          await this._updateLastSeen(user.id);
           console.log(`Authentication successful! Logged in as ${user.username}`);
           return this.response.status(200).send({ accessToken, expires });
         }
@@ -82,31 +86,37 @@ export class AuthController extends Controller {
   }
 
   @POST('/refresh-token')
+  @apiRequest({
+    class: () => {},
+    description: 'Refresh token of user'
+  })
+  @apiResponse(200, {
+    class: () => ({ accessToken: 'JWT Token', expires: 600 }),
+    description: 'JWT Token for successful refresh.'
+  })
+  @apiResponse(403, {
+    class: AccessDeniedError,
+    description: 'Could not refresh JWT.'
+  })
   async refresh() {
     const token = this.request.headers.authorization?.split(' ');
     const id = this.request.headers['x-hasura-user-id'];
-    if (!token) throw new AccessDeniedError('No JWT token found.');
+    if (!token || !id) throw new AccessDeniedError('No JWT token found or invalid user-id provided.');
 
     const options = {
-      query: '' as any,
-      variables: {},
-      context: {
-        headers: {
-          'x-hasura-admin-secret': process.env.HASURA_ADMIN_SECRET || ''
-        }
-      }
-    };
-    try {
-      options.query = gql`
+      query: gql`
         query ($id: uuid!) {
           users_by_pk(id: $id) {
             last_seen
           }
         }
-      `;
-      options.variables = {
+      `,
+      variables: {
         id
-      };
+      },
+      ...this.options
+    };
+    try {
       const result = await makePromise(execute(link, options));
 
       if (result.data?.users_by_pk) {
@@ -120,18 +130,7 @@ export class AuthController extends Controller {
               issuer: this.jwt.options.issuer
             }
           });
-          options.query = gql`
-            mutation ($id: uuid!, $timestamp: timestamptz!) {
-              update_users_by_pk(_set: { last_seen: $timestamp }, pk_columns: { id: $id }) {
-                id
-              }
-            }
-          `;
-          options.variables = {
-            id,
-            timestamp: new Date().toISOString()
-          };
-          await makePromise(execute(link, options));
+          await this._updateLastSeen(id);
           return this.response.status(200).send({ accessToken, expires });
         }
       }
@@ -139,5 +138,28 @@ export class AuthController extends Controller {
       console.log(e);
     }
     throw new AccessDeniedError('Could not refresh JWT.');
+  }
+
+  private async _updateLastSeen(id: string) {
+    const options = {
+      query: gql`
+        mutation ($id: uuid!, $timestamp: timestamptz!) {
+          update_users_by_pk(_set: { last_seen: $timestamp }, pk_columns: { id: $id }) {
+            id
+          }
+        }
+      `,
+      variables: {
+        id,
+        timestamp: new Date().toISOString()
+      },
+      ...this.options
+    };
+    try {
+      await makePromise(execute(link, options));
+    } catch (e) {
+      console.log('Refreshing last_seen value failed', e);
+    }
+    throw new AccessDeniedError('Could not update last_seen value.');
   }
 }
