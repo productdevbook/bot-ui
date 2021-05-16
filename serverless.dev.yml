@@ -1,0 +1,62 @@
+service: bot-api
+
+useDotenv: true
+
+plugins:
+  - serverless-webpack
+  - serverless-offline
+  # Workaround for serverless-offline hot-reload
+  # See https://github.com/dherault/serverless-offline/issues/931
+  # and https://github.com/dherault/serverless-offline/pull/978
+  - ./utils/sls-invalidate
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  stage: ${opt:stage, 'staging'}
+  region: ${opt:region, 'eu-central-1'}
+  memorySize: 256
+  tracing:
+    apiGateway: true
+    lambda: true
+  httpApi:
+    payload: '1.0'
+    cors:
+      allowedOrigins: '*'
+      allowedHeaders:
+        - "Content-Type: application/json"
+        - X-Amz-Date
+        - Authorization
+        - X-Amz-Security-Token
+        - X-Amz-User-Agent
+        - Access-Control-Allow-Origin
+        - Access-Control-Allow-Credentials
+        - Access-Control-Allow-Methods
+  environment:
+    SLS_STAGE: ${self:provider.stage}
+    SLS_SERVICE: ${self:service}
+    IS_OFFLINE: ${env:OFFLINE}
+    AWS_ENDPOINT: ${env:AWS_ENDPOINT}
+
+custom:
+  webpack:
+    webpackConfig: ./webpack.config.js
+    packager: yarn
+    includeModules:
+      forceExclude:
+        - aws-sdk
+  serverless-offline:
+    corsAllowHeaders: 'accept,content-type,authorization,Access-Control-Allow-Origin,Access-Control-Allow-Methods'
+    corsAllowOrigin: '*'
+    useChildProcesses: true
+    # set host to 0.0.0.0 for docker container
+    host: ${env:HOST}
+
+functions:
+  main:
+    handler: api/main.default
+    events:
+      - httpApi:
+          method: '*'
+          path: /{proxy+}
+          cors: true

@@ -7,7 +7,7 @@
     "dev": "bash -c 'yarn lambda & nuxt'",
     "build": "nuxt build",
     "start": "nuxt start",
-    "lambda": "sls offline start --stage dev --useWorkerThreads --noPrependStageInUrl --printOutput",
+    "lambda": "sls offline start --stage dev --useWorkerThreads --noPrependStageInUrl --printOutput --config serverless.dev.yml",
     "deploy": "serverless deploy",
     "generate": "nuxt generate",
     "generate-types": "graphql-codegen --config codegen.yml -r dotenv/config",
