@@ -7,14 +7,17 @@
       <router-link disabled class="bg-purple-500 btn" to="#">Get started</router-link>
       <router-link class="bg-blue-500 btn" to="/bot">Bots</router-link>
     </div>
+    <react-flow></react-flow>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator';
+import ReactFlow from '../components/react-flow.vue';
 
 @Component({
   name: 'Home',
+  components: { ReactFlow },
   transition(to, from) {
     if (!from) {
       return 'default';
