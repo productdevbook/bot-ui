@@ -2,6 +2,7 @@ const baseRules = {
   '@typescript-eslint/no-explicit-any': 0,
   '@typescript-eslint/ban-ts-ignore': 0,
   '@typescript-eslint/ban-ts-comment': 0,
+  'no-use-before-define': 0,
   indent: ['error', 2, { SwitchCase: 1, flatTernaryExpressions: true }],
   quotes: ['error', 'single', { avoidEscape: true }],
   semi: ['error', 'always'],
@@ -12,6 +13,7 @@ const baseRules = {
   camelcase: 0,
   '@typescript/camelcase': 0,
   'vue/no-v-html': 'off',
+  'vue/attribute-hyphenation': 0,
   'prettier/prettier': [
     'warn',
     {

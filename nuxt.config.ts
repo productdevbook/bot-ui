@@ -37,6 +37,9 @@ const config = {
   plugins: [
     {
       src: '~/plugins/vuex-persisted-state/persisted.ts'
+    },
+    {
+      src: '~/plugins/vuera/index.ts'
     }
   ],
 
