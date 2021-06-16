@@ -27,7 +27,8 @@
     "qs": "^6.10.1",
     "reflect-metadata": "^0.1.13",
     "source-map-support": "^0.5.19",
-    "ts-lambda-api": "^2.2.3"
+    "ts-lambda-api": "^2.2.3",
+    "type-is": "^1.6.18"
   },
   "devDependencies": {
     "@types/node": "^15.3.0",
