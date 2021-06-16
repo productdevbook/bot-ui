@@ -137,6 +137,9 @@ const config = {
   auth: NuxtAuthConfig,
 
   sentry: {
+    config: {
+      environment: process.env.TARGET_STAGE
+    },
     dsn: process.env.SENTRY_DSN,
     lazy: true,
     tracing: {
@@ -150,7 +153,6 @@ const config = {
         }
       }
     },
-    environment: process.env.TARGET_STAGE
   } as ModuleConfiguration,
 
   pwa: {
