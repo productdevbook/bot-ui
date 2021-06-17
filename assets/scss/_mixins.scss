@@ -1,3 +1,4 @@
+/* purgecss start ignore */
 @import "../css/mixin.css";
 
 @-webkit-keyframes flash {
@@ -172,3 +173,4 @@
   50% { box-shadow: 0 0 45px rgba(202, 34, 34, 1); }
   100% { box-shadow: 0 0 3px rgba(202, 34, 34, 0.7); }
 }
+/* purgecss end ignore */

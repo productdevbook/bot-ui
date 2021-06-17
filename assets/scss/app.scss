@@ -2,6 +2,7 @@
 @import "assets/scss/mixins";
 @import "assets/scss/theme";
 
+/* purgecss start ignore */
 html, body {
   background: map-get($material-dark, "background");
   font-family: Avenir, Helvetica, Arial, sans-serif;
@@ -74,3 +75,4 @@ html, body {
     color: #ff0000;
   }
 }
+/* purgecss end ignore */

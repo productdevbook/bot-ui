@@ -1,3 +1,4 @@
+/* purgecss start ignore */
 @-webkit-keyframes flash {
     100% {
         opacity: 1;
@@ -290,3 +291,4 @@
   50% { box-shadow: 0 0 40px #b0b0b0, 20px 0 40px #0070c6, -10px 0 40px #9f7434, 10px 0 150px #0070c6, -10px 0 150px #aabc2e, 0 0 50px #fff, -10px 0 40px #ff5400, 10px 0 40px #f90; }
   100% { box-shadow: 0 0 40px #818181, 10px 0 40px #6200ff, -10px 0 40px #df4ee9, 10px 0 150px #6200ff, -10px 0 150px #aabc2e, 0 0 50px #fff, -10px 0 40px #ff5400, 10px 0 40px #f90; }
 }
+/* purgecss end ignore */
