@@ -159,7 +159,6 @@ const config = {
   } as ModuleConfiguration,
 
   pwa: {
-    icon: false, // disables the icon module
     manifest: {
       name: 'Braks Bot UI',
       lang: 'en',
