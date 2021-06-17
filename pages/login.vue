@@ -26,7 +26,7 @@
           </transition>
         </v-card-text>
         <v-card-actions class="justify-center">
-          <v-btn :disabled="!valid" :loading="loading" outlined color="primary" @click="submit">
+          <v-btn :disabled="!valid || loading" :loading="loading" outlined color="primary" @click="submit">
             <transition name="fade" mode="out-in">
               <template v-if="!success && !loading && !error"><span>Login</span></template>
               <template v-else-if="success">
