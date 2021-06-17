@@ -1,15 +1,26 @@
 <template>
   <v-app id="app" dark>
     <v-app-bar class="header" app color="black" collapse-on-scroll elevation="20">
-      <v-avatar :color="$vuetify.breakpoint.smAndDown ? 'grey darken-1' : 'transparent'" size="32"></v-avatar>
+      <v-avatar
+        v-if="$vuetify.breakpoint.smAndDown"
+        :color="$vuetify.breakpoint.smAndDown ? 'grey darken-1' : 'transparent'"
+        size="32"
+      >
+        <img src="~static/default_avatar.png" alt="Avatar" />
+      </v-avatar>
 
-      <v-tabs centered class="ml-n9" color="white lighten-1">
+      <v-tabs slider-size="sm" centered class="ml-n9" color="white lighten-1">
         <v-tab v-for="link in links" :key="link">
           {{ link }}
         </v-tab>
+        <v-tab v-if="$vuetify.breakpoint.smAndUp">
+          About
+        </v-tab>
       </v-tabs>
 
-      <v-avatar class="hidden-sm-and-down" color="grey darken-1 shrink" size="32" @click="logout"></v-avatar>
+      <v-avatar v-if="$auth.loggedIn" class="hidden-sm-and-down" color="grey darken-1 shrink" size="36" @click="logout">
+        <img src="~static/default_avatar.png" alt="Avatar" />
+      </v-avatar>
     </v-app-bar>
 
     <v-main>
@@ -40,14 +51,15 @@ import { Component, Vue } from 'nuxt-property-decorator';
 
 @Component({
   name: 'V2Layout',
-  data: () => ({}),
-  auth: true
+  data: () => ({})
 })
 export default class V2Layout extends Vue {
-  links = ['Foo', 'Bar'];
+  links = ['Home', 'Bots'];
 
   mounted() {
-    this.$auth.refreshTokens();
+    if (this.$auth.loggedIn) {
+      this.$auth.refreshTokens();
+    }
   }
 
   async logout() {

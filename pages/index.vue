@@ -1,9 +1,11 @@
 <template>
   <div class="welcome-page d-flex justify-space-around align-center text-center">
     <div class="demo-flow-wrapper">
-      <div class="headlines">
-        <h1>Create your ideas and accelerate your work with @braks Bot.</h1>
-        <h4>Use a flowchart editor to create fun conversations with your own chat bot.</h4>
+      <div class="headlines" :style="$vuetify.breakpoint.smAndUp ? 'left: 10%' : ''">
+        <div>
+          <h1>Create your ideas and accelerate your work with @braks Bot.</h1>
+          <h4>Use a flowchart editor to create fun conversations with your own chat bot.</h4>
+        </div>
       </div>
 
       <div id="demo-flow"></div>
@@ -29,21 +31,16 @@ import { initDemo } from '../components/react/init-chart';
     initDemo(document.getElementById('demo-flow'));
   }
 })
-export default class Welcome extends Vue {
-  get username() {
-    return this.$store.getters['user/me'].username;
-  }
-}
+export default class Welcome extends Vue {}
 </script>
 <style lang="scss">
 .headlines {
-  display: grid;
-  gap: 1rem;
   word-break: break-word;
-  max-width: 360px;
-  position: absolute;
-  top: 35%;
-  left: 10%;
+  position: fixed;
+  max-width: 420px;
+  height: 75%;
+  align-items: center;
+  display: flex;
 }
 
 .welcome-page {
@@ -57,9 +54,5 @@ export default class Welcome extends Vue {
   flex: 1 1 auto;
   min-height: 360px;
   height: 100%;
-}
-
-.demo-flow-wrapper {
-  position: relative;
 }
 </style>

@@ -150,7 +150,6 @@ const OverviewFlow = () => {
   const onConnect = (params: any) => setElements((els: Elements) => addEdge(params, els));
 
   const onLoad = (reactFlowInstance: OnLoadParams) => {
-    console.log('flow loaded:', reactFlowInstance);
     reactFlowInstance.setTransform({ x: 650.0, y: 25.0, zoom: 1.25 });
   };
 
