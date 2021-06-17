@@ -12,6 +12,7 @@ export const PurgeCssConfig = {
     /.*-transition/,
     /.*-fade/,
     /.*-slide/,
+    /.*text*/,
     /col*/,
     /row*/
   ],

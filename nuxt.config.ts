@@ -155,7 +155,7 @@ const config = {
           trackComponents: true
         }
       }
-    },
+    }
   } as ModuleConfiguration,
 
   pwa: {
@@ -172,8 +172,8 @@ const config = {
 if (process.env.TARGET_STAGE === 'dev') {
   // Hosting
   config.server = {
-    host: '0.0.0.0',
-    port: '8085'
+    host: process.env.HOST || '0.0.0.0',
+    port: process.env.PORT || '8085'
   };
   // config.buildModules?.push('~/modules/ngrok', '~/modules/bot-api');
 }
