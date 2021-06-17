@@ -4,11 +4,9 @@
       <v-btn
         v-if="$auth.loggedIn && $vuetify.breakpoint.smAndDown"
         color="grey darken-1"
-        size="32"
         class="mx-2"
         title="Logout"
         fab
-        dark
         small
         @click="logout"
       >
@@ -19,32 +17,19 @@
 
       <v-tabs slider-size="sm" centered class="ml-n9" color="white lighten-1">
         <v-tab to="/"> Home </v-tab>
-        <v-tab v-if="$auth.loggedIn"> Bots </v-tab>
-        <v-tab v-if="$vuetify.breakpoint.smAndUp" to="/about"> About</v-tab>
+        <v-tab v-if="$auth.loggedIn" disabled> Projects </v-tab>
+        <v-tab v-if="$vuetify.breakpoint.smAndUp" disabled to="/about"> About</v-tab>
       </v-tabs>
 
-      <v-btn v-if="$auth.loggedIn" class="mx-2" title="Logout" fab dark small color="dark" @click="logout">
+      <v-btn v-if="$auth.loggedIn" class="mx-2" title="Logout" fab small color="dark" @click="logout">
         <v-avatar class="hidden-sm-and-down" color="grey darken-1 shrink" size="36">
           <img src="~static/default_avatar.png" alt="Avatar" />
         </v-avatar>
-      </v-btn>
-      <v-btn v-else to="/login" class="mx-2" title="Login" fab dark small color="blue">
-        <v-icon dark> {{ login }}</v-icon>
       </v-btn>
     </v-app-bar>
 
     <v-main>
       <v-container fill-height fluid class="justify-center">
-        <!--
-        <transition name="fade" mode="out-in">
-          <span v-if="$route.name !== 'index'" title="Back" class="nav-item nav-back grow" @click="$router.go(-1)">
-            <i class="fas fa-chevron-left pr-1"></i>
-          </span>
-        </transition>
-        <div title="Logoff" class="nav-item top-4 right-4 grow text-red-900 hover:text-red-500" @click="logout">
-          <i class="fas fa-power-off"></i>
-        </div>
-        -->
         <Nuxt keep-alive :keep-alive-props="{ max: 10 }" />
       </v-container>
     </v-main>
@@ -62,7 +47,8 @@ import { mdiLogin } from '@mdi/js';
 
 @Component({
   name: 'V2Layout',
-  data: () => ({})
+  data: () => ({}),
+  auth: true
 })
 export default class V2Layout extends Vue {
   login = mdiLogin;

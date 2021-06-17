@@ -5,12 +5,14 @@
         class="headlines"
         :style="{
           'mt-4': $vuetify.breakpoint.smAndDown,
-          left: $vuetify.breakpoint.mdAndUp ? '10%' : '',
-          height: $vuetify.breakpoint.mdAndUp ? '75%' : ''
+          left: $vuetify.breakpoint.mdAndUp ? '10%' : ''
         }"
       >
         <div v-if="!$auth.loggedIn">
-          <h1 class="text-h4 text-md-h3">Create your ideas and accelerate your work with @braks Bot.</h1>
+          <h1 class="text-h4 text-md-h3">
+            Create your ideas & accelerate your work with <br />
+            <strong>@braks Bots</strong>.
+          </h1>
           <h4 class="mt-4 text-md-h6">Use the flowchart editor to create fun conversations with your own chat bot.</h4>
         </div>
         <div v-else class="blue--text">
@@ -22,6 +24,13 @@
             </span>
           </h1>
           <h4><span>Start a new project or edit one of your existing ones.</span></h4>
+        </div>
+
+        <div class="actions mt-4">
+          <v-btn :to="$auth.loggedIn ? '/bot' : '/login'" class="ma-2" outlined color="success"> Get started</v-btn>
+          <v-btn target="_blank" href="https://github.com/bcakmakoglu/bot-ui" class="ma-2" outlined color="blue">
+            Check the repo
+          </v-btn>
         </div>
       </div>
 
@@ -38,6 +47,9 @@ import { initDemo } from '../components/react/init-chart';
 @Component({
   name: 'Home',
   auth: false,
+  layout: (ctx) => {
+    return ctx.app.$auth.$state.loggedIn ? 'default' : 'basic';
+  },
   transition(to, from) {
     if (!from) {
       return 'default';
@@ -80,7 +92,10 @@ export default class Welcome extends Vue {
   position: fixed;
   max-width: 420px;
   align-items: center;
+  justify-content: center;
   display: flex;
+  flex-flow: column;
+  height: 100%;
   z-index: 10;
 }
 
@@ -100,5 +115,12 @@ export default class Welcome extends Vue {
 .demo-flow-wrapper {
   display: flex;
   justify-content: center;
+}
+
+.actions {
+  display: flex;
+  justify-content: center;
+  flex-flow: row;
+  align-items: center;
 }
 </style>

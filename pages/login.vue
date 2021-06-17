@@ -50,7 +50,7 @@ import consolaGlobalInstance from 'consola';
 
 @Component({
   name: 'LoginForm',
-  layout: 'login',
+  layout: 'basic',
   transition: 'default',
   auth: false,
   mounted() {
