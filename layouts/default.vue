@@ -1,13 +1,21 @@
 <template>
   <v-app id="app" dark>
     <v-app-bar class="header" app color="black" collapse-on-scroll elevation="20">
-      <v-avatar
-        v-if="$vuetify.breakpoint.smAndDown"
-        :color="$vuetify.breakpoint.smAndDown ? 'grey darken-1' : 'transparent'"
+      <v-btn
+        v-if="$auth.loggedIn && $vuetify.breakpoint.smAndDown"
+        color="grey darken-1"
         size="32"
+        class="mx-2"
+        title="Logout"
+        fab
+        dark
+        small
+        @click="logout"
       >
-        <img src="~static/default_avatar.png" alt="Avatar" />
-      </v-avatar>
+        <v-avatar class="hidden-sm-and-down" color="grey darken-1 shrink" size="36">
+          <img src="~static/default_avatar.png" alt="Avatar" />
+        </v-avatar>
+      </v-btn>
 
       <v-tabs slider-size="sm" centered class="ml-n9" color="white lighten-1">
         <v-tab v-for="link in links" :key="link">
