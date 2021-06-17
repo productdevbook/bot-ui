@@ -39,5 +39,5 @@ module.exports = {
   plugins: [],
   // add your custom rules here
   rules: baseRules,
-  ignorePatterns: ['types/*', 'static/*']
+  ignorePatterns: ['types/*', 'static/*', 'components/react/*']
 };

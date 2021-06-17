@@ -17,7 +17,6 @@
     "emitDecoratorMetadata": true,
     "skipLibCheck": true,
     "baseUrl": ".",
-    "jsx": "react-jsx",
     "paths": {
       "~/*": [
         "./*"
@@ -26,6 +25,7 @@
         "./*"
       ]
     },
+    "typeRoots": ["@types/*"],
     "types": [
       "@types/js-cookie",
       "@types/aws-lambda",
@@ -37,7 +37,7 @@
       "nuxtjs/sentry",
       "@nuxtjs/toast",
       "@vercel/node",
-      "@nuxtjs/vuetify"
+      "@nuxtjs/vuetify",
     ]
   },
   "exclude": [
@@ -47,8 +47,6 @@
     "./types/types.ts"
   ],
   "files": [
-    "index.d.ts",
-    "graphql.d.ts",
-    "plugins/session-manager/index.ts"
+    "graphql.d.ts"
   ]
 }

@@ -13,7 +13,7 @@
     </v-app-bar>
 
     <v-main>
-      <v-container fill-height fluid>
+      <v-container fill-height fluid class="justify-center">
         <!--
         <transition name="fade" mode="out-in">
           <span v-if="$route.name !== 'index'" title="Back" class="nav-item nav-back grow" @click="$router.go(-1)">
@@ -24,7 +24,7 @@
           <i class="fas fa-power-off"></i>
         </div>
         -->
-        <Nuxt keep-alive :keep-alive-props="{ max: 10 }" :class="visibleSidebar" />
+        <Nuxt keep-alive :keep-alive-props="{ max: 10 }" />
       </v-container>
     </v-main>
 
@@ -40,13 +40,10 @@ import { Component, Vue } from 'nuxt-property-decorator';
 
 @Component({
   name: 'V2Layout',
-  data: () => ({
-    stars: false
-  }),
+  data: () => ({}),
   auth: true
 })
 export default class V2Layout extends Vue {
-  visibleSidebar: boolean = false;
   links = ['Foo', 'Bar'];
 
   mounted() {

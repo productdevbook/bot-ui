@@ -48,7 +48,11 @@ import consolaGlobalInstance from 'consola';
   name: 'LoginForm',
   layout: 'login',
   transition: 'default',
-  auth: false
+  auth: false,
+  mounted() {
+    this.$auth.reset();
+    this.$apolloHelpers.onLogout();
+  }
 })
 export default class LoginForm extends Vue {
   cancel = mdiCancel;
