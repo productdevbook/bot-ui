@@ -9,9 +9,9 @@ export const PurgeCssConfig = {
     /^v-((?!btn).)*$/,
     /^v-((?!item).)*$/,
     /^\.theme--dark*/,
-    /.*-transition/,
-    /.*-fade/,
-    /.*-slide/,
+    /.*transition*/,
+    /.*fade*/,
+    /.*slide*/,
     /.*text*/,
     /col*/,
     /row*/
