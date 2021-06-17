@@ -81,6 +81,7 @@ export default class Welcome extends Vue {
   max-width: 420px;
   align-items: center;
   display: flex;
+  z-index: 10;
 }
 
 .welcome-page {
