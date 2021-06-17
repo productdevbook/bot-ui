@@ -1,6 +1,6 @@
 mutation ($data: LoginData!) {
   login(data: $data) {
-    id,
+    id
     accessToken
     refreshToken
   }
