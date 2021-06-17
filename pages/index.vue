@@ -1,23 +1,22 @@
 <template>
-  <div class="bg-gray-800 flex gap-8 justify-around items-center flex-col p-8 lg:p-12 rounded shadow-xl">
-    <span class="text-4xl lg:text-6xl underline text-gray-200">@braks Bot-Ui</span>
-    <span class="text-xl lg:text-3xl text-gray-400">Welcome {{ username }}!</span>
-    <p>For more information visit <a href="https://github.com/braksgold/bot-ui">website</a></p>
-    <div class="flex flex-row flex-wrap justify-center items-center">
-      <router-link disabled class="bg-purple-500 btn" to="#">Get started</router-link>
-      <router-link class="bg-blue-500 btn" to="/bot">Bots</router-link>
+  <div class="welcome-page d-flex justify-space-around align-center text-center">
+    <div class="demo-flow-wrapper">
+      <div class="headlines">
+        <h1>Create your ideas and accelerate your work with @braks Bot.</h1>
+        <h4>Use a flowchart editor to create fun conversations with your own chat bot.</h4>
+      </div>
+
+      <div id="demo-flow"></div>
     </div>
-    <react-flow></react-flow>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator';
-import ReactFlow from '../components/react-flow.vue';
+import { initDemo } from '../components/react/init-chart';
 
 @Component({
   name: 'Home',
-  components: { ReactFlow },
   transition(to, from) {
     if (!from) {
       return 'default';
@@ -25,6 +24,9 @@ import ReactFlow from '../components/react-flow.vue';
     const toPath = to.fullPath.split('/');
     const fromPath = from.fullPath.split('/');
     return toPath.length <= fromPath.length && (from.name !== 'login' || to.name === 'login') ? 'slide-right' : 'slide';
+  },
+  mounted() {
+    initDemo(document.getElementById('demo-flow'));
   }
 })
 export default class Welcome extends Vue {
@@ -33,3 +35,31 @@ export default class Welcome extends Vue {
   }
 }
 </script>
+<style lang="scss">
+.headlines {
+  display: grid;
+  gap: 1rem;
+  word-break: break-word;
+  max-width: 360px;
+  position: absolute;
+  top: 35%;
+  left: 10%;
+}
+
+.welcome-page {
+  height: 100%;
+  width: 100vw;
+}
+
+.demo-flow-wrapper,
+#demo-flow,
+.react-flow {
+  flex: 1 1 auto;
+  min-height: 360px;
+  height: 100%;
+}
+
+.demo-flow-wrapper {
+  position: relative;
+}
+</style>
