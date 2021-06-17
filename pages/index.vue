@@ -1,10 +1,17 @@
 <template>
   <div class="welcome-page d-flex justify-space-around align-center text-center">
     <div class="demo-flow-wrapper">
-      <div class="headlines" :style="$vuetify.breakpoint.smAndUp ? 'left: 10%' : ''">
+      <div
+        class="headlines"
+        :style="{
+          'mt-4': $vuetify.breakpoint.smAndDown,
+          left: $vuetify.breakpoint.mdAndUp ? '10%' : '',
+          height: $vuetify.breakpoint.mdAndUp ? '75%' : ''
+        }"
+      >
         <div v-if="!$auth.loggedIn">
-          <h1>Create your ideas and accelerate your work with @braks Bot.</h1>
-          <h4 class="mt-4">Use the flowchart editor to create fun conversations with your own chat bot.</h4>
+          <h1 class="text-h4 text-md-h3">Create your ideas and accelerate your work with @braks Bot.</h1>
+          <h4 class="mt-4 text-md-h6">Use the flowchart editor to create fun conversations with your own chat bot.</h4>
         </div>
         <div v-else class="blue--text">
           <h1>
@@ -25,6 +32,7 @@
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator';
+import { OnLoadParams } from 'react-flow-renderer';
 import { initDemo } from '../components/react/init-chart';
 
 @Component({
@@ -37,12 +45,32 @@ import { initDemo } from '../components/react/init-chart';
     const toPath = to.fullPath.split('/');
     const fromPath = from.fullPath.split('/');
     return toPath.length <= fromPath.length && (from.name !== 'login' || to.name === 'login') ? 'slide-right' : 'slide';
-  },
-  mounted() {
-    initDemo(document.getElementById('demo-flow'));
   }
 })
 export default class Welcome extends Vue {
+  demoFlow: OnLoadParams;
+
+  mounted() {
+    initDemo(document.getElementById('demo-flow'), this.onDemoLoad);
+  }
+
+  beforeUpdate() {
+    if (this.demoFlow) {
+      console.log(this.$vuetify.breakpoint);
+      if (this.$vuetify.breakpoint.smAndDown) {
+        this.demoFlow.setTransform({ x: 40, y: 275, zoom: 0.5 });
+      } else {
+        console.log('boo');
+        this.demoFlow.setTransform({ x: 650.0, y: 25.0, zoom: 1.1 });
+      }
+    }
+  }
+
+  onDemoLoad(params: OnLoadParams) {
+    this.demoFlow = params;
+    params.setTransform({ x: 650.0, y: 25.0, zoom: 1.1 });
+  }
+
   get username() {
     return this.$auth.user?.username || '';
   }
@@ -53,7 +81,6 @@ export default class Welcome extends Vue {
   word-break: break-word;
   position: fixed;
   max-width: 420px;
-  height: 75%;
   align-items: center;
   display: flex;
 }
@@ -69,5 +96,10 @@ export default class Welcome extends Vue {
   flex: 1 1 auto;
   min-height: 360px;
   height: 100%;
+}
+
+.demo-flow-wrapper {
+  display: flex;
+  justify-content: center;
 }
 </style>

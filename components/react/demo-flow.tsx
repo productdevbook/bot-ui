@@ -1,15 +1,14 @@
 import React, { useState } from 'react';
 
 import ReactFlow, {
-  removeElements,
   addEdge,
-  MiniMap,
-  Controls,
   Background,
+  Controls,
   Elements,
+  MiniMap,
   ReactFlowProvider,
-  OnLoadParams
-} from 'react-flow-renderer';
+  removeElements
+} from "react-flow-renderer";
 
 const initialElements = [
   {
@@ -101,8 +100,10 @@ const initialElements = [
     data: {
       label: (
         <>
-          <small><strong>Bot answers: </strong></small> <br />
-          I will <strong>order</strong> the burger for you.
+          <small>
+            <strong>Bot answers: </strong>
+          </small>{' '}
+          <br />I will <strong>order</strong> the burger for you.
         </>
       )
     },
@@ -141,7 +142,7 @@ const initialElements = [
   }
 ] as Elements;
 
-const OverviewFlow = () => {
+const OverviewFlow = ({ cb }: any) => {
   const [elements, setElements] = useState(initialElements);
 
   // @ts-ignore
@@ -149,17 +150,13 @@ const OverviewFlow = () => {
   // @ts-ignore
   const onConnect = (params: any) => setElements((els: Elements) => addEdge(params, els));
 
-  const onLoad = (reactFlowInstance: OnLoadParams) => {
-    reactFlowInstance.setTransform({ x: 650.0, y: 25.0, zoom: 1.10 });
-  };
-
   return (
     <ReactFlowProvider>
       <ReactFlow
         elements={elements}
         onElementsRemove={onElementsRemove}
         onConnect={onConnect}
-        onLoad={onLoad}
+        onLoad={cb}
         snapToGrid={true}
         snapGrid={[15, 15]}
         defaultPosition={[100, 0]}

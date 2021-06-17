@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import ReactFlow, { Elements, useZoomPanHelper } from "react-flow-renderer";
+import ReactFlow, { Elements, OnLoadParams } from 'react-flow-renderer';
 import DemoFlow from './demo-flow';
 
 export const init = (hookableEl: HTMLElement, elements: Elements, clickEvent: any) => {
@@ -12,10 +12,10 @@ export const init = (hookableEl: HTMLElement, elements: Elements, clickEvent: an
   );
 };
 
-export const initDemo = (hookableEl: HTMLElement) => {
+export const initDemo = (hookableEl: HTMLElement, onLoadCb: (reactFlowInstance: OnLoadParams) => void) => {
   ReactDOM.render(
     <React.StrictMode>
-      <DemoFlow />
+      <DemoFlow cb={onLoadCb} />
     </React.StrictMode>,
     hookableEl
   );
