@@ -12,7 +12,11 @@ import '@/assets/scss/app.scss';
 import { Component, Vue } from 'nuxt-property-decorator';
 
 @Component({
-  name: 'LoginLayout'
+  name: 'LoginLayout',
+  mounted() {
+    this.$auth.reset();
+    this.$apolloHelpers.onLogout();
+  }
 })
 export default class LoginLayout extends Vue {}
 </script>
