@@ -29,9 +29,6 @@
     </v-app-bar>
 
     <v-main>
-      <v-overlay z-index="99" opacity="0.8" :value="loading">
-        <v-progress-circular indeterminate color="blue"></v-progress-circular>
-      </v-overlay>
       <v-container fill-height fluid class="justify-center">
         <Nuxt keep-alive :keep-alive-props="{ max: 10 }" />
       </v-container>
@@ -64,9 +61,7 @@ export default class V2Layout extends Vue {
   }
 
   async logout() {
-    this.loading = true;
-    await this.$auth.logout();
-    this.loading = false;
+    await this.$router.replace('/logout');
   }
 }
 </script>

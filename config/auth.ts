@@ -28,12 +28,6 @@ export const NuxtAuthConfig = {
         required: true,
         tokenRequired: true
       },
-      endpoints: {
-        login: { method: 'post' },
-        logout: { url: '', method: 'post' },
-        refresh: { method: 'post' },
-        user: { method: 'post' }
-      },
       autoLogout: true
     },
     auth0: {
