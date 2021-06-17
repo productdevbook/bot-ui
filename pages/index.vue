@@ -56,11 +56,9 @@ export default class Welcome extends Vue {
 
   beforeUpdate() {
     if (this.demoFlow) {
-      console.log(this.$vuetify.breakpoint);
       if (this.$vuetify.breakpoint.smAndDown) {
         this.demoFlow.setTransform({ x: 40, y: 275, zoom: 0.5 });
       } else {
-        console.log('boo');
         this.demoFlow.setTransform({ x: 650.0, y: 25.0, zoom: 1.1 });
       }
     }
