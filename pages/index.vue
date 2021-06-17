@@ -71,14 +71,14 @@ export default class Welcome extends Vue {
       if (this.$vuetify.breakpoint.smAndDown) {
         this.demoFlow.setTransform({ x: 40, y: 275, zoom: 0.5 });
       } else {
-        this.demoFlow.setTransform({ x: 650.0, y: 25.0, zoom: 1.1 });
+        this.demoFlow.setTransform({ x: 650.0, y: 75.0, zoom: 1.1 });
       }
     }
   }
 
   onDemoLoad(params: OnLoadParams) {
     this.demoFlow = params;
-    params.setTransform({ x: 650.0, y: 25.0, zoom: 1.1 });
+    params.setTransform({ x: 650.0, y: 75.0, zoom: 1.1 });
   }
 
   get username() {
