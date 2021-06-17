@@ -18,10 +18,9 @@
       </v-btn>
 
       <v-tabs slider-size="sm" centered class="ml-n9" color="white lighten-1">
-        <v-tab v-for="link in links" :key="link">
-          {{ link }}
-        </v-tab>
-        <v-tab v-if="$vuetify.breakpoint.smAndUp"> About</v-tab>
+        <v-tab to="/"> Home </v-tab>
+        <v-tab v-if="$auth.loggedIn"> Bots </v-tab>
+        <v-tab v-if="$vuetify.breakpoint.smAndUp" to="/about"> About</v-tab>
       </v-tabs>
 
       <v-btn v-if="$auth.loggedIn" class="mx-2" title="Logout" fab dark small color="dark" @click="logout">
@@ -66,7 +65,6 @@ import { mdiLogin } from '@mdi/js';
   data: () => ({})
 })
 export default class V2Layout extends Vue {
-  links = ['Home', 'Bots'];
   login = mdiLogin;
 
   mounted() {
