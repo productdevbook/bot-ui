@@ -2,9 +2,19 @@
   <div class="welcome-page d-flex justify-space-around align-center text-center">
     <div class="demo-flow-wrapper">
       <div class="headlines" :style="$vuetify.breakpoint.smAndUp ? 'left: 10%' : ''">
-        <div>
+        <div v-if="!$auth.loggedIn">
           <h1>Create your ideas and accelerate your work with @braks Bot.</h1>
-          <h4>Use a flowchart editor to create fun conversations with your own chat bot.</h4>
+          <h4 class="mt-4">Use the flowchart editor to create fun conversations with your own chat bot.</h4>
+        </div>
+        <div v-else class="blue--text">
+          <h1>
+            <span>
+              Hello,
+              <strong> {{ username }} </strong>
+              ! <br />
+            </span>
+          </h1>
+          <h4><span>Start a new project or edit one of your existing ones.</span></h4>
         </div>
       </div>
 
@@ -19,6 +29,7 @@ import { initDemo } from '../components/react/init-chart';
 
 @Component({
   name: 'Home',
+  auth: false,
   transition(to, from) {
     if (!from) {
       return 'default';
@@ -31,7 +42,11 @@ import { initDemo } from '../components/react/init-chart';
     initDemo(document.getElementById('demo-flow'));
   }
 })
-export default class Welcome extends Vue {}
+export default class Welcome extends Vue {
+  get username() {
+    return this.$auth.user?.username || '';
+  }
+}
 </script>
 <style lang="scss">
 .headlines {

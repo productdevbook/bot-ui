@@ -2,8 +2,12 @@
   <v-row align="center" justify="center">
     <v-col cols="12" sm="4" align-self="center">
       <v-card elevation="10" :loading="loading" outlined shaped>
-        <v-card-title> Welcome</v-card-title>
-        <v-card-subtitle> This page is being reworked. Please be patient until it's finished.</v-card-subtitle>
+        <v-card-title> Login</v-card-title>
+        <v-card-subtitle>
+          If you don't have an account, you're out of luck. <br />
+          Public registrations will be available with first release. <br />
+          Check <a href="https://github.com/bcakmakoglu/bot-ui">the repo</a> for updates.
+        </v-card-subtitle>
         <v-card-text class="justify-center">
           <v-form ref="form" v-model="valid" :disabled="loading" @submit.prevent="submit">
             <v-text-field v-model="username" :rules="rules" label="Username" required @input="error = false"></v-text-field>

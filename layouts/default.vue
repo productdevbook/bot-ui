@@ -13,14 +13,17 @@
         <v-tab v-for="link in links" :key="link">
           {{ link }}
         </v-tab>
-        <v-tab v-if="$vuetify.breakpoint.smAndUp">
-          About
-        </v-tab>
+        <v-tab v-if="$vuetify.breakpoint.smAndUp"> About</v-tab>
       </v-tabs>
 
-      <v-avatar v-if="$auth.loggedIn" class="hidden-sm-and-down" color="grey darken-1 shrink" size="36" @click="logout">
-        <img src="~static/default_avatar.png" alt="Avatar" />
-      </v-avatar>
+      <v-btn v-if="$auth.loggedIn" class="mx-2" title="Logout" fab dark small color="dark" @click="logout">
+        <v-avatar class="hidden-sm-and-down" color="grey darken-1 shrink" size="36">
+          <img src="~static/default_avatar.png" alt="Avatar" />
+        </v-avatar>
+      </v-btn>
+      <v-btn v-else to="/login" class="mx-2" title="Login" fab dark small color="blue">
+        <v-icon dark> {{ login }}</v-icon>
+      </v-btn>
     </v-app-bar>
 
     <v-main>
@@ -48,6 +51,7 @@
 <script lang="ts">
 import '@/assets/scss/app.scss';
 import { Component, Vue } from 'nuxt-property-decorator';
+import { mdiLogin } from '@mdi/js';
 
 @Component({
   name: 'V2Layout',
@@ -55,6 +59,7 @@ import { Component, Vue } from 'nuxt-property-decorator';
 })
 export default class V2Layout extends Vue {
   links = ['Home', 'Bots'];
+  login = mdiLogin;
 
   mounted() {
     if (this.$auth.loggedIn) {
