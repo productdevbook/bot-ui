@@ -159,24 +159,7 @@ const OverviewFlow = ({ cb }: any) => {
         onLoad={cb}
         snapToGrid={true}
         snapGrid={[15, 15]}
-        defaultPosition={[100, 0]}
       >
-        <MiniMap
-          nodeStrokeColor={(n) => {
-            if (n.style?.background) return String(n.style.background);
-            if (n.type === 'input') return '#0041d0';
-            if (n.type === 'output') return '#ff0072';
-            if (n.type === 'default') return '#1a192b';
-
-            return '#eee';
-          }}
-          nodeColor={(n) => {
-            if (n.style?.background) return String(n.style.background);
-
-            return '#fff';
-          }}
-          nodeBorderRadius={2}
-        />
         <Controls />
         <Background color="#aaa" gap={16} />
       </ReactFlow>

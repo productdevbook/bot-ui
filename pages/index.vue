@@ -4,16 +4,17 @@
       <div
         class="headlines"
         :style="{
-          'mt-4': $vuetify.breakpoint.smAndDown,
-          left: $vuetify.breakpoint.mdAndUp ? '10%' : ''
+          left: $vuetify.breakpoint.mdAndUp ? '10%' : false,
+          top: '25%',
+          'margin-top': $vuetify.breakpoint.smAndDown ? '2rem' : false
         }"
       >
         <div v-if="!$auth.loggedIn">
-          <h1 class="text-h4 text-md-h3">
+          <h1 class="text-h5 text-md-h3">
             Create your ideas & accelerate your work with <br />
             <strong>@braks Bots</strong>.
           </h1>
-          <h4 class="mt-4 text-md-h6">Use the flowchart editor to create fun conversations with your own chat bot.</h4>
+          <h4 class="mt-4 text-h6">Use the flowchart editor to create fun conversations with your own chat bot.</h4>
         </div>
         <div v-else class="blue--text">
           <h1>
@@ -60,24 +61,11 @@ import { initDemo } from '../components/react/init-chart';
   }
 })
 export default class Welcome extends Vue {
-  demoFlow: OnLoadParams;
-
   mounted() {
     initDemo(document.getElementById('demo-flow'), this.onDemoLoad);
   }
 
-  beforeUpdate() {
-    if (this.demoFlow) {
-      if (this.$vuetify.breakpoint.smAndDown) {
-        this.demoFlow.setTransform({ x: 40, y: 275, zoom: 0.5 });
-      } else {
-        this.demoFlow.setTransform({ x: 650.0, y: 75.0, zoom: 1.1 });
-      }
-    }
-  }
-
   onDemoLoad(params: OnLoadParams) {
-    this.demoFlow = params;
     params.setTransform({ x: 650.0, y: 75.0, zoom: 1.1 });
   }
 
@@ -95,7 +83,6 @@ export default class Welcome extends Vue {
   justify-content: center;
   display: flex;
   flex-flow: column;
-  height: 100%;
   z-index: 10;
 }
 
