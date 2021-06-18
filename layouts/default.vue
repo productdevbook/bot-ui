@@ -1,19 +1,6 @@
 <template>
   <v-app id="app" dark>
     <v-app-bar class="header" app color="black" collapse-on-scroll elevation="20">
-      <v-btn
-        v-if="$auth.loggedIn && $vuetify.breakpoint.smAndDown"
-        color="grey darken-1"
-        class="mx-2"
-        title="Logout"
-        fab
-        small
-        @click="logout"
-      >
-        <v-avatar class="hidden-sm-and-down" color="grey darken-1 shrink" size="36">
-          <img src="~static/default_avatar.png" alt="Avatar" />
-        </v-avatar>
-      </v-btn>
 
       <v-tabs slider-size="sm" centered class="ml-n9" color="white lighten-1">
         <v-tab to="/"> Home</v-tab>
@@ -22,7 +9,7 @@
       </v-tabs>
 
       <v-btn v-if="$auth.loggedIn" class="mx-2" title="Logout" fab small color="dark" @click="logout">
-        <v-avatar class="hidden-sm-and-down" color="grey darken-1 shrink" size="36">
+        <v-avatar color="grey darken-1 shrink" size="36">
           <img src="~static/default_avatar.png" alt="Avatar" />
         </v-avatar>
       </v-btn>
