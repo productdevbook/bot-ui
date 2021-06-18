@@ -15,7 +15,7 @@ export const NuxtHeaderConfig: NuxtConfig['head'] = {
       property: 'og:description',
       content: 'Create your ideas and have fun with @braks bots.'
     },
-    { hid: 'og:image', property: 'og:image', content: '~/static/icon.png' },
+    { hid: 'og:image', property: 'og:image', content: 'https://braks-bot.vercel.app/icon.png' },
     {
       hid: 'og:site_name',
       property: 'og:site_name',

@@ -14,7 +14,7 @@
             Create your ideas & accelerate your work with <br />
             <strong>@braks Bots</strong>.
           </h1>
-          <h4 class="mt-4 text-h6">Use the flowchart editor to create fun conversations with your own chat bot.</h4>
+          <h2 class="mt-4 text-h6">Use the flowchart editor to create fun conversations with your own chat bot.</h2>
         </div>
         <div v-else class="blue--text">
           <h1>
@@ -29,7 +29,7 @@
 
         <div class="actions mt-4">
           <v-btn :to="$auth.loggedIn ? '/bot' : '/login'" class="ma-2" outlined color="success"> Get started</v-btn>
-          <v-btn target="_blank" href="https://github.com/bcakmakoglu/bot-ui" class="ma-2" outlined color="blue">
+          <v-btn target="_blank" rel="noreferrer" href="https://github.com/bcakmakoglu/bot-ui" class="ma-2" outlined color="blue">
             Check the repo
           </v-btn>
         </div>

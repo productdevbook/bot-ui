@@ -159,11 +159,25 @@ const config = {
   } as ModuleConfiguration,
 
   pwa: {
-    manifest: {
-      name: 'Braks Bot UI',
+    icon: {
+      source: '~/static/icon.png'
+    },
+    meta: {
+      name: '@braks bot-ui',
       lang: 'en',
-      useWebmanifestExtension: false
+      theme_color: 'dark'
+    },
+    manifest: {
+      name: '@braks bot-ui',
+      lang: 'en',
+      useWebmanifestExtension: false,
+      theme_color: 'dark'
     }
+  },
+
+  robots: {
+    UserAgent: '*',
+    Disallow: '/login'
   }
 } as NuxtConfig;
 

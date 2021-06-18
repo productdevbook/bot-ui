@@ -14,5 +14,6 @@ export const NuxtModules = [
   'nuxt-webfontloader',
   '@nuxtjs/axios',
   '@nuxtjs/auth-next',
-  '@nuxtjs/sentry'
+  '@nuxtjs/sentry',
+  '@nuxtjs/robots'
 ];

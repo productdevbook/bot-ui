@@ -1,7 +1,6 @@
 <template>
   <v-app id="app" dark>
     <v-app-bar class="header" app color="black" collapse-on-scroll elevation="20">
-
       <v-tabs slider-size="sm" centered class="ml-n9" color="white lighten-1">
         <v-tab to="/"> Home</v-tab>
         <v-tab v-if="$auth.loggedIn" disabled> Projects</v-tab>
